@@ -55,7 +55,7 @@ INIT_VIEWS = (
     "proposal",
 )
 FAILED_STATUSES = {"failed", "error"}
-PLUGIN_VERSION = "1.6.3"
+PLUGIN_VERSION = "1.6.4"
 KNOWLEDGE_PLANES = (
     "objective",
     "actor_belief",

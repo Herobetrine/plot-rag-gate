@@ -1,6 +1,19 @@
 # Changelog
 
 
+## 1.6.4 - 2026-07-20
+
+- Removed the unsupported `SessionEnd` registration from the Codex Hook
+  manifest while retaining the internal `--session-end` compatibility and
+  diagnostic entry point.
+- Moved durable queued, running, failed, and pending-review extraction-barrier
+  persistence into the existing `Stop` boundary. The silent persistence pass
+  preserves the single Stop response and keeps accepted/no-delta cleanup,
+  fail-closed markers, locking, and redaction semantics unchanged.
+- Tightened the release contract and regression suite to require exactly the
+  current Codex lifecycle events: `SessionStart`, `UserPromptSubmit`, and
+  `Stop`.
+
 ## 1.6.3 - 2026-07-20
 
 - Removed all repository-tracked project-specific seeds, fixtures, paths, names, source manifests, hashes, and acceptance reports.

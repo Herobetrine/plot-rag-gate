@@ -3026,13 +3026,27 @@ class ReleaseGateTests(unittest.TestCase):
             "HOOK_MATCHER_INVALID",
         )
 
-        impossible_session_end_matcher = json.loads(json.dumps(base))
-        impossible_session_end_matcher["hooks"]["SessionEnd"][0][
-            "matcher"
-        ] = "IMPOSSIBLE"
-        variants["impossible_session_end_matcher"] = (
-            impossible_session_end_matcher,
-            "HOOK_MATCHER_INVALID",
+        unsupported_session_end = json.loads(json.dumps(base))
+        unsupported_session_end["hooks"]["SessionEnd"] = [
+            {
+                "matcher": "*",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": (
+                            "python -B -X utf8 "
+                            '"${CLAUDE_PLUGIN_ROOT}/'
+                            'hooks/plot_progression_gate.py" '
+                            "--session-end"
+                        ),
+                        "timeout": 10,
+                    }
+                ],
+            }
+        ]
+        variants["unsupported_session_end"] = (
+            unsupported_session_end,
+            "HOOK_EVENT_INVALID",
         )
 
         asynchronous = json.loads(json.dumps(base))

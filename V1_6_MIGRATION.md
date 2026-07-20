@@ -1,9 +1,10 @@
-# plot-rag-gate v1.6.3 迁移指南
+# plot-rag-gate v1.6.4 迁移指南
 
 本指南覆盖 `v1.5.0 / continuity schema v6 / item projection v1` 升级到
-`v1.6.3 / continuity schema v7 / Advantage projection v1`。其中 v1.6.2
-增加初始化后的独立 PowerSpec validate/preview/propose 生命周期，v1.6.1
-增加 accepted source-manifest 生命周期；历史上的
+`v1.6.4 / continuity schema v7 / Advantage projection v1`。其中 v1.6.4
+把 extraction 屏障持久化并入宿主支持的 `Stop` Hook，v1.6.2 增加初始化后的
+独立 PowerSpec validate/preview/propose 生命周期，v1.6.1 增加 accepted
+source-manifest 生命周期；历史上的
 v5→v6 物品迁移仍以 [V1_5_MIGRATION.md](V1_5_MIGRATION.md) 为准；本文件只描述
 特殊物品、金手指、Advantage v1、来源清单与独立 PowerSpec 导入的增量升级。
 

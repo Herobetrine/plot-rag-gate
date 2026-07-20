@@ -1293,9 +1293,6 @@ class HookTestCase(unittest.TestCase):
                 disable_worker=True,
             )
             self.assertIn("status=queued", stopped.stdout)
-            session_end = self.run_session_end(project)
-            self.assertEqual(0, session_end.returncode, session_end.stderr)
-            self.assertIn("close_pending=1", session_end.stdout)
             close_path = (
                 project / ".plot-rag" / "session-close-pending.json"
             )
@@ -2592,6 +2589,45 @@ class HookTestCase(unittest.TestCase):
             self.assertTrue(entry["blocking"])
             self.assertEqual(7, entry["sequence_no"])
             self.assertEqual("job-running", entry["job_id"])
+
+    def test_session_end_can_persist_silently_at_stop_boundary(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            project = self.make_grill_project(Path(temporary))
+            payload = {
+                "hook_event_name": "Stop",
+                "cwd": str(project),
+                "session_id": "session-stop-boundary",
+                "branch_id": "main",
+            }
+            with (
+                patch.object(
+                    hook,
+                    "_latest_extraction_barrier",
+                    return_value={
+                        "code": "queued",
+                        "blocking": True,
+                        "branch_id": "main",
+                        "sequence_no": 8,
+                        "job": {"job_id": "job-stop-boundary"},
+                    },
+                ),
+                redirect_stdout(io.StringIO()) as output,
+            ):
+                self.assertEqual(
+                    0,
+                    hook._run_session_end(payload, emit=False),
+                )
+
+            self.assertEqual("", output.getvalue())
+            close_payload = json.loads(
+                hook._session_close_path(project).read_text(
+                    encoding="utf-8"
+                )
+            )
+            entry = close_payload["entries"][0]
+            self.assertEqual("session-stop-boundary", entry["session_id"])
+            self.assertEqual("queued", entry["code"])
+            self.assertEqual("job-stop-boundary", entry["job_id"])
 
     def test_session_end_persists_failed_extraction_barrier(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -4792,20 +4828,9 @@ raise SystemExit(
     def test_hooks_manifest_uses_codex_runtime_shape(self) -> None:
         manifest = json.loads((PLUGIN_ROOT / "hooks" / "hooks.json").read_text(encoding="utf-8"))
         self.assertEqual({"hooks"}, set(manifest))
-        self.assertIn("SessionStart", manifest["hooks"])
-        self.assertIn("SessionEnd", manifest["hooks"])
-        self.assertIn("UserPromptSubmit", manifest["hooks"])
-        self.assertIn("Stop", manifest["hooks"])
-        session_end = manifest["hooks"]["SessionEnd"][0]
-        self.assertEqual("*", session_end["matcher"])
         self.assertEqual(
-            10,
-            session_end["hooks"][0]["timeout"],
-        )
-        self.assertTrue(
-            session_end["hooks"][0]["command"].endswith(
-                '--session-end'
-            )
+            {"SessionStart", "UserPromptSubmit", "Stop"},
+            set(manifest["hooks"]),
         )
 
     def test_active_initialization_owns_continue_and_suppresses_stop_extract(self) -> None:

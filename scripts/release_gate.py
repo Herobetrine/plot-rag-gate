@@ -117,13 +117,6 @@ EXPECTED_HOOK_ARGUMENTS = {
         "${CLAUDE_PLUGIN_ROOT}/hooks/plot_progression_gate.py",
         "--session-start",
     ),
-    "SessionEnd": (
-        "-B",
-        "-X",
-        "utf8",
-        "${CLAUDE_PLUGIN_ROOT}/hooks/plot_progression_gate.py",
-        "--session-end",
-    ),
     "UserPromptSubmit": (
         "-B",
         "-X",
@@ -140,7 +133,6 @@ EXPECTED_HOOK_ARGUMENTS = {
 }
 EXPECTED_HOOK_TIMEOUTS = {
     "SessionStart": 5,
-    "SessionEnd": 10,
     "UserPromptSubmit": 75,
     "Stop": 45,
 }
@@ -3755,7 +3747,7 @@ def _validate_hooks(root: Path) -> list[GateIssue]:
                 )
             )
             continue
-        session_lifecycle_event = event in {"SessionStart", "SessionEnd"}
+        session_lifecycle_event = event == "SessionStart"
         expected_matcher_keys = (
             {"matcher", "hooks"} if session_lifecycle_event else {"hooks"}
         )

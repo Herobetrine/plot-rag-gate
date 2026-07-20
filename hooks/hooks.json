@@ -12,18 +12,6 @@
         ]
       }
     ],
-    "SessionEnd": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python -B -X utf8 \"${CLAUDE_PLUGIN_ROOT}/hooks/plot_progression_gate.py\" --session-end",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
     "UserPromptSubmit": [
       {
         "hooks": [

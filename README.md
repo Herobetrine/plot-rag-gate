@@ -2,8 +2,12 @@
 
 面向长篇网文的剧情连续性、作品初始化与创作方法 RAG 门禁。
 
-`v1.6.3` 在 v1.6.2 的严格正典链路上完成通用发行清理：生产载荷不再内置
-任何单一作品的名称、角色、设定、绝对路径、验收快照或专属 Advantage seed。
+`v1.6.4` 修正 Codex 运行时集成：Hook 清单只声明宿主支持的
+`SessionStart / UserPromptSubmit / Stop`，未决 extraction 屏障在同一个 `Stop`
+边界持久化，不再依赖宿主没有提供的 `SessionEnd` 事件。内部 `--session-end`
+入口继续保留，供兼容调用和直接诊断使用。v1.6.3 的通用发行清理继续有效：
+生产载荷不内置任何单一作品的名称、角色、设定、绝对路径、验收快照或专属
+Advantage seed。
 独立 PowerSpec 导入入口继续接受完整
 `plot-rag-power/v1` 可直接执行 validate → preview → immutable
 `power_spec_change` proposal → `accept_power_spec` grant → canon CAS → replay，
@@ -251,6 +255,10 @@ Stop
   → 本地 schema、逐字证据与类型化语义校验
   → immutable proposal，或确定性 no-delta
   → 自动 ExperienceReview；失败只写 diagnostics
+  → 刷新同 branch / sequence 的 extraction 与 pending-review 屏障
+  → 将 queued / running / failed / pending-review 持久化到
+    .plot-rag/session-close-pending.json
+  → accepted / no-delta 清除对应记录；损坏文件 fail-closed
   → 不改变 current、timeless 或 accepted event
 
 可信宿主或真实交互式本地确认
@@ -264,11 +272,6 @@ accept
   → current / planned / historical / timeless / branch projections
   → snapshot / index / summary / memory / vector 独立投影
 
-SessionEnd
-  → 刷新同 branch / sequence 的 extraction 与 pending-review 屏障
-  → 将 queued / running / failed / pending-review 持久化到
-    .plot-rag/session-close-pending.json
-  → accepted / no-delta 清除对应记录；损坏文件 fail-closed
 ```
 
 第三方模型没有文件、数据库、grant 或正典写权限。模型输出始终只是候选；ID、作用域、所有权、顺序、版本、幂等、CAS 和写入由本地确定性代码控制。
@@ -368,8 +371,11 @@ hybrid
 
 - `SessionStart`：只读诊断，不创建状态库。
 - `UserPromptSubmit`：依次处理活跃初始化、活跃 Grill、新创作请求 Grill、初始化 handoff 或剧情 prepare。
-- `Stop`：活跃初始化和 Grill 问答轮抑制剧情抽取；已交接的 config v3 剧情轮只保存 proposal；config v1/v2 保持旧版兼容提交行为。
-- `SessionEnd`：不把未决状态留在进程内存；将 queued、running、failed 与 pending-review 屏障脱敏持久化，供下次剧情轮继续处理。
+- `Stop`：活跃初始化和 Grill 问答轮抑制剧情抽取；已交接的 config v3
+  剧情轮只保存 proposal；config v1/v2 保持旧版兼容提交行为。抽取或排队完成后，
+  同一 Stop 边界会把 queued、running、failed 与 pending-review 屏障脱敏持久化，
+  供下一剧情轮继续处理。
+- `--session-end` 仍是兼容和直接诊断入口，但不登记为 Codex Hook 事件。
 
 元问题、插件说明、流程设计、插件维护、仓库、测试、发布、否定、暂停、分析、审查和查询不会触发剧情闭环，也不会被活跃初始化当成回答；“给剧情推演增加测试”“优化剧情推演正则”“剧情推演的关键词有哪些”等明显在讨论门禁本身的说法同样保持静默。没有活跃 Grill 时，“继续”“开始吧”等短续词仍继承最近有效任务分类；存在活跃 Grill 时，这些词只重复当前问题，不会被记作答案。显式“剧情推演”“推演下一章”始终优先，“续一章”“再来一章”“把下一章写出来”“把章纲扩成正文”等自然网文创作指令也会进入同一创作仲裁。
 
@@ -941,7 +947,8 @@ $env:PLOT_RAG_TRUSTED_HOSTS = "llm.example.com,127.0.0.1"
 - `.plot-rag/items.v1.json`：初始化产生的物品 Definition/Instance/Function/Custody/Runtime/Observation sidecar；绑定来源 snapshot 与 package hash。
 - `.plot-rag/advantages.v1.json`：初始化产生的 Advantage Definition/Anchor/Module/Runtime/Ledger/Knowledge/Contract/NarrativeContract sidecar。
 - `.plot-rag/物品/`、`.plot-rag/金手指/`：从 accepted SQLite 状态重建的 disposable Markdown 投影。
-- `.plot-rag/session-close-pending.json`：`SessionEnd` 持久化的 queued/running/failed/pending-review 屏障；accepted 与 no-delta 后清理。
+- `.plot-rag/session-close-pending.json`：`Stop` 边界持久化的
+  queued/running/failed/pending-review 屏障；accepted 与 no-delta 后清理。
 - `.plot-rag/experience-review-diagnostics.jsonl`：自动体验审查失败的脱敏诊断；不改变 proposal、job、canon 或 lifecycle binding。
 - `.plot-rag/commits/`：不可变提交物。
 - `.plot-rag/state_snapshot.json`、`.plot-rag/continuity_snapshot.json`：可读派生快照。

@@ -2559,24 +2559,35 @@ def _refresh_session_close_entries(
         )
 
 
-def _run_session_end_unlocked(payload: dict[str, Any]) -> int:
+def _session_end_output(message: str, *, emit: bool) -> None:
+    if not emit:
+        return
+    print(
+        json.dumps(
+            {
+                "continue": True,
+                "suppressOutput": True,
+                "systemMessage": message,
+            },
+            ensure_ascii=False,
+        )
+    )
+
+
+def _run_session_end_unlocked(
+    payload: dict[str, Any],
+    *,
+    emit: bool = True,
+) -> int:
     cwd = _cwd(payload)
     root, config, config_error = _find_project(cwd)
     if root is None:
         return 0
     if config_error:
-        print(
-            json.dumps(
-                {
-                    "continue": True,
-                    "suppressOutput": True,
-                    "systemMessage": (
-                        "plot-rag-gate SessionEnd: INDEX_UNAVAILABLE; "
-                        + config_error
-                    ),
-                },
-                ensure_ascii=False,
-            )
+        _session_end_output(
+            "plot-rag-gate SessionEnd: INDEX_UNAVAILABLE; "
+            + config_error,
+            emit=emit,
         )
         return 0
     session_id = str(
@@ -2592,20 +2603,12 @@ def _run_session_end_unlocked(payload: dict[str, Any]) -> int:
             payload=payload,
         )
     except Exception as exc:
-        print(
-            json.dumps(
-                {
-                    "continue": True,
-                    "suppressOutput": True,
-                    "systemMessage": (
-                        "plot-rag-gate SessionEnd: "
-                        "close_pending=unknown; fail_closed=true; "
-                        "reason="
-                        + _safe_worker_diagnostic(exc)
-                    ),
-                },
-                ensure_ascii=False,
-            )
+        _session_end_output(
+            "plot-rag-gate SessionEnd: "
+            "close_pending=unknown; fail_closed=true; "
+            "reason="
+            + _safe_worker_diagnostic(exc),
+            emit=emit,
         )
         return 0
     by_key = {
@@ -2670,40 +2673,24 @@ def _run_session_end_unlocked(payload: dict[str, Any]) -> int:
             marker_paths=marker_paths,
         )
     except Exception as exc:
-        print(
-            json.dumps(
-                {
-                    "continue": True,
-                    "suppressOutput": True,
-                    "systemMessage": (
-                        "plot-rag-gate SessionEnd: "
-                        "close_pending=unknown; fail_closed=true; "
-                        "reason="
-                        + _safe_worker_diagnostic(exc)
-                    ),
-                },
-                ensure_ascii=False,
-            )
+        _session_end_output(
+            "plot-rag-gate SessionEnd: "
+            "close_pending=unknown; fail_closed=true; "
+            "reason="
+            + _safe_worker_diagnostic(exc),
+            emit=emit,
         )
         return 0
-    print(
-        json.dumps(
-            {
-                "continue": True,
-                "suppressOutput": True,
-                "systemMessage": (
-                    "plot-rag-gate SessionEnd: "
-                    + (
-                        "close_pending="
-                        + str(len(blocked))
-                        + "; unresolved extraction barrier persisted"
-                        if blocked
-                        else "close_clear=true; accepted/no-delta barrier clear"
-                    )
-                ),
-            },
-            ensure_ascii=False,
-        )
+    _session_end_output(
+        "plot-rag-gate SessionEnd: "
+        + (
+            "close_pending="
+            + str(len(blocked))
+            + "; unresolved extraction barrier persisted"
+            if blocked
+            else "close_clear=true; accepted/no-delta barrier clear"
+        ),
+        emit=emit,
     )
     return 0
 
@@ -2742,39 +2729,35 @@ def _persist_session_close_lock_failure(
     return len(created), ""
 
 
-def _run_session_end(payload: dict[str, Any]) -> int:
+def _run_session_end(
+    payload: dict[str, Any],
+    *,
+    emit: bool = True,
+) -> int:
     cwd = _cwd(payload)
     root, _, config_error = _find_project(cwd)
     if root is None or config_error:
-        return _run_session_end_unlocked(payload)
+        return _run_session_end_unlocked(payload, emit=emit)
     try:
         with _session_close_lock(root):
-            return _run_session_end_unlocked(payload)
+            return _run_session_end_unlocked(payload, emit=emit)
     except Exception as exc:
         marker_count, marker_error = _persist_session_close_lock_failure(
             root,
             payload,
             exc,
         )
-        print(
-            json.dumps(
-                {
-                    "continue": True,
-                    "suppressOutput": True,
-                    "systemMessage": (
-                        "plot-rag-gate SessionEnd: "
-                        "close_pending=unknown; fail_closed=true; reason="
-                        + _safe_worker_diagnostic(exc)
-                        + f"; durable_markers={marker_count}"
-                        + (
-                            "; marker_error=" + marker_error
-                            if marker_error
-                            else ""
-                        )
-                    ),
-                },
-                ensure_ascii=False,
-            )
+        _session_end_output(
+            "plot-rag-gate SessionEnd: "
+            "close_pending=unknown; fail_closed=true; reason="
+            + _safe_worker_diagnostic(exc)
+            + f"; durable_markers={marker_count}"
+            + (
+                "; marker_error=" + marker_error
+                if marker_error
+                else ""
+            ),
+            emit=emit,
         )
         return 0
 
@@ -4514,6 +4497,7 @@ def _run_stop(payload: dict[str, Any]) -> int:
             )
         except Exception:
             pass
+    _run_session_end(payload, emit=False)
     _stop_output(
         result,
         stop_hook_active=bool(payload.get("stop_hook_active", False)),

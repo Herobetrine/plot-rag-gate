@@ -564,7 +564,7 @@ class McpServerTestCase(unittest.TestCase):
             responses[0]["result"]["protocolVersion"],
         )
         self.assertEqual(
-            "1.6.3",
+            "1.6.4",
             responses[0]["result"]["serverInfo"]["version"],
         )
         catalog = {

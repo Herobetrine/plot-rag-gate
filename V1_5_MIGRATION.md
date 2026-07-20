@@ -241,9 +241,10 @@ python -B -X utf8 .\scripts\plot_state.py item inventory `
 11. review revision 不推进 lifecycle binding revision，review 失败也不改变
     proposal、job 或 canon；
 12. 故事产物内部控制术语泄漏保持零 proposal、零 extraction job；
-13. `SessionEnd` 会把 queued、running、failed 与 pending-review 屏障持久化到
-    `.plot-rag/session-close-pending.json`，accepted 与 no-delta 会清除对应记录；
-14. worker、SessionEnd 与 review diagnostics 均遮罩 Bearer、Authorization、
+13. `Stop` 会在抽取或排队后把 queued、running、failed 与 pending-review
+    屏障持久化到 `.plot-rag/session-close-pending.json`，accepted 与 no-delta
+    会清除对应记录；
+14. worker、Stop 边界与 review diagnostics 均遮罩 Bearer、Authorization、
     password、token、cookie、常见 key 前缀及敏感环境变量值。
 
 迁移验证应在合成 fixture 或调用方自行准备的隔离副本中执行，并比较迁移前后 legacy query 与 projection hash。
