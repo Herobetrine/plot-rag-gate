@@ -1,0 +1,230 @@
+{
+  "config_version": 3,
+  "enabled": true,
+  "trigger_short_continue": true,
+  "grill": {
+    "enabled": true,
+    "schema_version": "plot-rag-intent/v1",
+    "database_path": ".plot-rag/grill.sqlite3",
+    "one_question_per_turn": true,
+    "recommend_answer": true,
+    "explore_project_first": true,
+    "max_questions": 6,
+    "session_ttl_seconds": 21600,
+    "required_fields": [
+      "problem_to_solve",
+      "expected_deliverable",
+      "reader_experience",
+      "protagonist_drive_conflict",
+      "scope_endpoint",
+      "success_criteria",
+      "hard_constraints",
+      "model_autonomy"
+    ],
+    "skip_phrases": [
+      "跳过 Grill",
+      "跳过盘问",
+      "跳过目的确认",
+      "按现有要求直接执行",
+      "直接执行，不要追问"
+    ],
+    "cancel_phrases": [
+      "取消本轮 Grill",
+      "结束本轮盘问",
+      "停止本轮盘问",
+      "放弃本轮任务"
+    ]
+  },
+  "lifecycle": {
+    "strict": true,
+    "longform_context_chars": 7000,
+    "index_embeddings_on_prepare": false,
+    "approval_ttl_seconds": 300,
+    "candidate_cache_limit": 5000,
+    "projection_history_limit": 20
+  },
+  "performance": {
+    "prepare_v2": {
+      "enabled": false,
+      "shadow": true,
+      "single_read_snapshot": true,
+      "exact_state_short_circuit": true,
+      "batch_embedding": true,
+      "batch_failure_fallback_single": true,
+      "rerank_max_concurrency": 4,
+      "remote_total_concurrency": 6,
+      "singleflight": true,
+      "persistent_exact_cache": true,
+      "http_keep_alive": true
+    },
+    "extraction": {
+      "mode": "sync",
+      "async_shadow": true,
+      "next_plot_turn_barrier": true,
+      "barrier_requires_proposal_resolution": true,
+      "deterministic_repairs": [
+        "single_action_event_type_echo"
+      ]
+    }
+  },
+  "extraction_protocol": {
+    "authoritative_protocol": "json_object",
+    "tool_schema_shadow": false,
+    "tool_name": "submit_plot_rag_deltas"
+  },
+  "authority_sources": [
+    {
+      "glob": "正文/**/*.md",
+      "role": "canon",
+      "scope_policy": "infer_and_review",
+      "ingest_policy": "include",
+      "priority": 100
+    },
+    {
+      "glob": "设定集/**/*.md",
+      "role": "setting",
+      "scope_policy": "timeless_candidate",
+      "ingest_policy": "include",
+      "priority": 90
+    },
+    {
+      "glob": "剧情/**/*.md",
+      "role": "outline",
+      "scope_policy": "planned_only",
+      "ingest_policy": "review",
+      "priority": 60
+    },
+    {
+      "glob": "**/*灵感*.md",
+      "role": "note",
+      "scope_policy": "planned_only",
+      "ingest_policy": "exclude",
+      "priority": 20
+    }
+  ],
+  "ignore_globs": [],
+  "index_path": ".plot-rag/index.sqlite3",
+  "max_chunk_chars": 1600,
+  "max_file_bytes": 8388608,
+  "candidate_limit": 5,
+  "reliable_coverage": 0.32,
+  "weak_coverage": 0.16,
+  "state": {
+    "enabled": true,
+    "db_path": ".plot-rag/state.sqlite3",
+    "snapshot_path": ".plot-rag/state_snapshot.json",
+    "commit_dir": ".plot-rag/commits",
+    "auto_retrieve": true,
+    "auto_record": true,
+    "fail_closed": false,
+    "categories": [
+      "character_state",
+      "relationship",
+      "location",
+      "inventory",
+      "story_time",
+      "world_state",
+      "ability",
+      "progression",
+      "resource",
+      "status",
+      "binding",
+      "qualification",
+      "observation"
+    ],
+    "top_k": 12,
+    "max_context_chars": 12000,
+    "min_confidence": 0.72
+  },
+  "event_experience": {
+    "enabled": true,
+    "required_before_event_design": true,
+    "event_seed_required": true,
+    "receipt_hash_binding": true,
+    "derive_from_intent": true,
+    "grill_on_structural_ambiguity": true,
+    "one_question_per_turn": true,
+    "max_questions_per_chain": 1,
+    "repeat_same_question_limit": 1,
+    "session_ttl_seconds": 21600,
+    "visible_in_story_artifacts": false
+  },
+  "items": {
+    "schema_version": "plot-rag-item/v1",
+    "delta_version": "plot-rag-delta/v4",
+    "strict_runtime_validation": false,
+    "power_binding_bridge": true,
+    "readable_projection": true
+  },
+  "advantage": {
+    "enabled": false,
+    "shadow": true,
+    "schema_version": "plot-rag-advantage/v1",
+    "strict_runtime_validation": false,
+    "readable_projection": true,
+    "mandatory_context": true
+  },
+  "power_system": {
+    "mode": "auto",
+    "schema_version": "plot-rag-power/v1",
+    "strict_progression": true,
+    "comparison_mode": "conditional",
+    "unknown_policy": "quarantine",
+    "profiles": []
+  },
+  "craft": {
+    "enabled": true,
+    "auto_retrieve": true,
+    "use_embedding": true,
+    "use_rerank": true,
+    "top_k": 4,
+    "candidate_pool": 10,
+    "max_context_chars": 6500
+  },
+  "remote": {
+    "timeout_seconds": 15,
+    "embedding": {
+      "enabled": true,
+      "base_url": "https://api.siliconflow.cn/v1",
+      "base_url_env": "EMBED_BASE_URL",
+      "model": "BAAI/bge-m3",
+      "model_env": "EMBED_MODEL",
+      "api_key_env": "SILICONFLOW_API_KEY",
+      "api_key_required": true
+    },
+    "rerank": {
+      "enabled": true,
+      "base_url": "https://api.siliconflow.cn/v1",
+      "base_url_env": "RERANK_BASE_URL",
+      "model": "BAAI/bge-reranker-v2-m3",
+      "model_env": "RERANK_MODEL",
+      "api_key_env": "SILICONFLOW_API_KEY",
+      "api_key_required": true
+    },
+    "extract": {
+      "enabled": true,
+      "base_url": "https://api.siliconflow.cn/v1",
+      "base_url_env": "PLOT_RAG_LLM_BASE_URL",
+      "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+      "model_env": "PLOT_RAG_LLM_MODEL",
+      "api_key_env": "SILICONFLOW_API_KEY",
+      "api_key_required": true
+    }
+  },
+  "initialization": {
+    "schema_version": "auto",
+    "database_path": ".plot-rag/init.sqlite3",
+    "proposal_only": true,
+    "default_mode": "auto",
+    "default_target_profile": "plot_ready",
+    "default_interaction_profile": "balanced",
+    "source_max_bytes": 16777216,
+    "exclude_globs": [
+      ".git/**",
+      ".plot-rag/**",
+      ".plot-rag-init/**",
+      "__pycache__/**",
+      "node_modules/**"
+    ]
+  }
+}

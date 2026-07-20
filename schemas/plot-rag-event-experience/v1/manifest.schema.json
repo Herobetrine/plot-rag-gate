@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-event-experience/v1/manifest.schema.json",
+  "title": "Plot RAG Event Experience Manifest v1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/candidateManifest"
+    },
+    {
+      "$ref": "#/$defs/lockedManifest"
+    }
+  ],
+  "$defs": {
+    "manifestBaseProperties": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "plot-rag-event-experience/v1"
+        },
+        "parent_chain_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "branch_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "artifact_id": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "artifact_revision": {
+          "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+        },
+        "accepted_outline_binding": {
+          "$ref": "common.schema.json#/$defs/acceptedOutlineBinding"
+        },
+        "event_seed_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "control_revision": {
+          "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+        },
+        "ready": {
+          "type": "boolean"
+        },
+        "blocking_state": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "candidateSeed": {
+      "type": "object",
+      "required": [
+        "event_seed_id",
+        "event_seed_revision",
+        "seed_hash",
+        "dependency_order",
+        "parent_chain_id",
+        "branch_id",
+        "artifact_id",
+        "artifact_revision"
+      ],
+      "properties": {
+        "event_seed_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "event_seed_revision": {
+          "$ref": "common.schema.json#/$defs/positiveInteger"
+        },
+        "seed_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "dependency_order": {
+          "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+        },
+        "parent_chain_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "branch_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "artifact_id": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "artifact_revision": {
+          "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+        },
+        "source_outline_commit_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "source_outline_artifact_version_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "source_outline_artifact_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "source_outline_artifact_revision": {
+          "$ref": "common.schema.json#/$defs/positiveInteger"
+        },
+        "source_outline_content_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidateManifest": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "manifest_kind",
+        "parent_chain_id",
+        "branch_id",
+        "artifact_id",
+        "artifact_revision",
+        "seeds",
+        "event_seed_manifest_hash",
+        "control_revision",
+        "ready",
+        "blocking_state"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "plot-rag-event-experience/v1"
+        },
+        "manifest_kind": {
+          "const": "event_seed_candidates"
+        },
+        "parent_chain_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "branch_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "artifact_id": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "artifact_revision": {
+          "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+        },
+        "accepted_outline_binding": {
+          "$ref": "common.schema.json#/$defs/acceptedOutlineBinding"
+        },
+        "seeds": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/candidateSeed"
+          }
+        },
+        "event_seed_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "control_revision": {
+          "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+        },
+        "ready": {
+          "const": false
+        },
+        "blocking_state": {
+          "const": "AWAITING_EVENT_EXPERIENCE"
+        }
+      },
+      "additionalProperties": false
+    },
+    "lockedManifest": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "manifest_kind",
+        "parent_chain_id",
+        "branch_id",
+        "artifact_id",
+        "artifact_revision",
+        "source_intent_contract_id",
+        "source_intent_contract_revision",
+        "source_intent_contract_hash",
+        "contracts",
+        "event_seed_manifest_hash",
+        "control_revision",
+        "ready",
+        "blocking_state"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "plot-rag-event-experience/v1"
+        },
+        "manifest_kind": {
+          "const": "locked_event_experience"
+        },
+        "parent_chain_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "branch_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "artifact_id": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "artifact_revision": {
+          "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+        },
+        "accepted_outline_binding": {
+          "$ref": "common.schema.json#/$defs/acceptedOutlineBinding"
+        },
+        "source_intent_contract_id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "source_intent_contract_revision": {
+          "$ref": "common.schema.json#/$defs/positiveInteger"
+        },
+        "source_intent_contract_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "contracts": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "$ref": "common.schema.json#/$defs/contractBinding"
+          }
+        },
+        "event_seed_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "control_revision": {
+          "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+        },
+        "ready": {
+          "const": true
+        },
+        "blocking_state": {
+          "type": "null"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

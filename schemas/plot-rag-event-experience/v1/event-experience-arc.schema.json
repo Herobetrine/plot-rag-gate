@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-event-experience/v1/event-experience-arc.schema.json",
+  "title": "Plot RAG EventExperienceArc v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "arc_revision",
+    "parent_chain_id",
+    "entry_reader_state",
+    "target_reader_state",
+    "overall_peak",
+    "release_rhythm",
+    "aftertaste",
+    "event_seed_ids",
+    "branch_id",
+    "artifact_id",
+    "artifact_revision"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "plot-rag-event-experience/v1"
+    },
+    "arc_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "arc_revision": {
+      "$ref": "common.schema.json#/$defs/positiveInteger"
+    },
+    "parent_chain_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "entry_reader_state": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "target_reader_state": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "overall_peak": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "release_rhythm": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "aftertaste": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "event_seed_ids": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      }
+    },
+    "event_seed_bindings": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "$ref": "common.schema.json#/$defs/seedBinding"
+      }
+    },
+    "branch_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "artifact_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "artifact_revision": {
+      "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+    },
+    "supersedes_arc_revision": {
+      "$ref": "common.schema.json#/$defs/positiveInteger"
+    },
+    "arc_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "locked",
+        "retired"
+      ]
+    },
+    "locked_at": {
+      "$ref": "common.schema.json#/$defs/nullableTimestamp"
+    },
+    "retired_at": {
+      "$ref": "common.schema.json#/$defs/nullableTimestamp"
+    },
+    "retired_reason": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 4096
+    },
+    "created_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "updated_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    }
+  },
+  "additionalProperties": false
+}

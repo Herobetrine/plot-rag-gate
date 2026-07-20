@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/common.schema.json",
+  "$defs": {
+    "entityId": {"type": "string", "pattern": "^ent-[a-f0-9]+$"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "nativeTermBinding": {
+      "type": "object",
+      "required": ["binding_id", "native_term", "canonical_type", "adapter_id", "adapter_version", "mapping_quality", "semantic_loss", "source_claim_ids"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/entityId"},
+        "native_term": {"type": "string", "minLength": 1},
+        "canonical_type": {"type": "string", "minLength": 1},
+        "canonical_id": {"type": ["string", "null"]},
+        "adapter_id": {"type": "string", "minLength": 1},
+        "adapter_version": {"type": "string", "minLength": 1},
+        "mapping_quality": {"enum": ["lossless", "partial", "unmapped"]},
+        "semantic_loss": {"type": "array", "items": {"type": "string"}},
+        "source_claim_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "storyCoordinate": {
+      "type": "object",
+      "required": ["calendar_id", "ordinal"],
+      "properties": {
+        "calendar_id": {"type": "string"},
+        "ordinal": {"type": "integer"},
+        "label": {"type": "string"},
+        "precision": {"type": "string"},
+        "source_event_id": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

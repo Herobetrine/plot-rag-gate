@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-init/v2/common.schema.json",
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "fieldState": {"$ref": "../v1/common.schema.json#/$defs/fieldState"}
+  }
+}

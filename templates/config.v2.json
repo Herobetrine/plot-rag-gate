@@ -1,0 +1,76 @@
+{
+  "version": 2,
+  "enabled": true,
+  "trigger_short_continue": true,
+  "authority_globs": [
+    "设定集/**/*.md",
+    "大纲/**/*.md",
+    "正文/**/*.md"
+  ],
+  "ignore_globs": [],
+  "index_path": ".plot-rag/index.sqlite3",
+  "max_chunk_chars": 1600,
+  "max_file_bytes": 8388608,
+  "candidate_limit": 5,
+  "reliable_coverage": 0.32,
+  "weak_coverage": 0.16,
+  "state": {
+    "enabled": true,
+    "db_path": ".plot-rag/state.sqlite3",
+    "snapshot_path": ".plot-rag/state_snapshot.json",
+    "commit_dir": ".plot-rag/commits",
+    "auto_retrieve": true,
+    "auto_record": true,
+    "fail_closed": false,
+    "categories": [
+      "character_state",
+      "relationship",
+      "location",
+      "inventory",
+      "story_time",
+      "world_state"
+    ],
+    "top_k": 12,
+    "max_context_chars": 12000,
+    "min_confidence": 0.72
+  },
+  "craft": {
+    "enabled": true,
+    "auto_retrieve": true,
+    "use_embedding": true,
+    "use_rerank": true,
+    "top_k": 4,
+    "candidate_pool": 10,
+    "max_context_chars": 6500
+  },
+  "remote": {
+    "timeout_seconds": 15,
+    "embedding": {
+      "enabled": true,
+      "base_url": "https://api.siliconflow.cn/v1",
+      "base_url_env": "EMBED_BASE_URL",
+      "model": "BAAI/bge-m3",
+      "model_env": "EMBED_MODEL",
+      "api_key_env": "SILICONFLOW_API_KEY",
+      "api_key_required": true
+    },
+    "rerank": {
+      "enabled": true,
+      "base_url": "https://api.siliconflow.cn/v1",
+      "base_url_env": "RERANK_BASE_URL",
+      "model": "BAAI/bge-reranker-v2-m3",
+      "model_env": "RERANK_MODEL",
+      "api_key_env": "SILICONFLOW_API_KEY",
+      "api_key_required": true
+    },
+    "extract": {
+      "enabled": true,
+      "base_url": "https://api.siliconflow.cn/v1",
+      "base_url_env": "PLOT_RAG_LLM_BASE_URL",
+      "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+      "model_env": "PLOT_RAG_LLM_MODEL",
+      "api_key_env": "SILICONFLOW_API_KEY",
+      "api_key_required": true
+    }
+  }
+}

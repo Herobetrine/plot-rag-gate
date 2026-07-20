@@ -1,0 +1,20 @@
+{
+  "schema_version": "plot-rag-power-adapter/v1",
+  "adapter_id": "plot-rag-power.technology",
+  "version": "1.0.0",
+  "profile": "technology",
+  "display_name": "科技强化",
+  "aliases": ["赛博", "机甲", "义体", "technology"],
+  "detection_terms": ["义体", "装甲", "机甲", "能源", "热量", "算力", "带宽", "权限", "维护", "弹药"],
+  "track_kinds": ["ordered_rank", "numeric_level", "branch_tree"],
+  "native_terms": {
+    "progression_track": ["义体档位", "装甲代际", "软件等级", "权限级别"],
+    "ability": ["模块", "武装", "算法"],
+    "resource_pool": ["能源", "热量", "弹药", "算力", "带宽"],
+    "binding": ["义体", "装甲", "接口"],
+    "qualification": ["授权", "维护资格"]
+  },
+  "required_dimensions": ["energy", "heat", "compatibility", "authorization", "maintenance", "failure", "supply_chain"],
+  "question_prompts": ["模块由什么能源、散热和接口支持？", "授权撤销或维护失败会怎样？", "供应链和入侵风险如何影响持续使用？"],
+  "no_rank_generation": false
+}

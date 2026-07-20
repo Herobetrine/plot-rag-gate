@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/rank-node.schema.json",
+  "type": "object",
+  "required": ["rank_node_id", "track_id", "name", "state"],
+  "properties": {
+    "rank_node_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "track_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "name": {"type": "string", "minLength": 1},
+    "order": {"type": ["number", "null"]},
+    "state": {"enum": ["defined", "unknown", "deferred", "conflicted"]}
+  },
+  "additionalProperties": true
+}

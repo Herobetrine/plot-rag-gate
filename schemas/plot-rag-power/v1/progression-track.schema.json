@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/progression-track.schema.json",
+  "type": "object",
+  "required": ["track_id", "power_system_id", "namespace", "name", "track_kind", "native_term_bindings"],
+  "properties": {
+    "track_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "power_system_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "namespace": {"type": "string"},
+    "name": {"type": "string"},
+    "track_kind": {"enum": ["ordered_rank", "numeric_level", "branch_tree", "dag", "state_machine", "open_ended", "none"]},
+    "native_term_bindings": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/nativeTermBinding"}}
+  },
+  "additionalProperties": true
+}

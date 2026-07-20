@@ -1,0 +1,22 @@
+{
+  "schema_version": "plot-rag-power-adapter/v1",
+  "adapter_id": "plot-rag-power.cultivation",
+  "version": "1.0.0",
+  "profile": "cultivation",
+  "display_name": "修仙",
+  "aliases": ["仙侠", "玄幻修炼", "cultivation"],
+  "detection_terms": ["境界", "灵力", "功法", "术式", "法器", "灵根", "天劫", "心魔", "筑基", "金丹"],
+  "track_kinds": ["ordered_rank", "dag", "open_ended", "state_machine"],
+  "native_terms": {
+    "power_system": ["修行体系", "道统"],
+    "progression_track": ["修为", "炼体", "神魂", "道意"],
+    "rank_node": ["大境界", "小境界"],
+    "ability": ["功法", "术式", "神通"],
+    "resource_pool": ["灵力", "神识", "寿命"],
+    "binding": ["灵根", "体质", "法器"],
+    "counter_rule": ["克制", "破法", "领域压制"]
+  },
+  "required_dimensions": ["source", "progression", "resource_cycle", "breakthrough", "failure", "counter", "social_consequence"],
+  "question_prompts": ["力量从何种传承或资质进入？", "突破需要什么积累、地点与劫难？", "失败会损伤根基、寿命还是身份？"],
+  "no_rank_generation": false
+}

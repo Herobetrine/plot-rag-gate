@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/ability-definition.schema.json",
+  "type": "object",
+  "required": ["ability_id", "power_system_id", "name"],
+  "properties": {
+    "ability_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "power_system_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "name": {"type": "string", "minLength": 1},
+    "ability_kind": {"enum": ["active", "passive", "toggle", "reaction", "domain", "ritual", "production", "summon", "permission"]},
+    "effects": {"type": "array"},
+    "source_bindings": {"type": "array"},
+    "costs": {"type": "array"},
+    "conditions": {"type": "array"},
+    "limits": {"type": "array"},
+    "counters": {"type": "array"},
+    "evidence_claim_ids": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

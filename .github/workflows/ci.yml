@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+        python-version:
+          - "3.10"
+          - "3.13"
+
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run unit tests
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONWARNINGS: "error::ResourceWarning"
+        run: python -B -X utf8 -m unittest discover -s tests -v
+      - name: Smoke the extracted plugin payload
+        run: python -B -X utf8 scripts/release_gate.py smoke --root .
+
+  release-gates:
+    name: Portable plugin release gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: test
+
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.13"
+      - name: Validate plugin, skill, schema, version, and CI contracts
+        run: python -B -X utf8 scripts/release_gate.py validate --root .
+      - name: Scan tracked source and reachable Git history for secrets
+        run: python -B -X utf8 scripts/release_gate.py secrets --root . --history
+      - name: Verify deterministic package round-trip
+        run: python -B -X utf8 scripts/release_gate.py roundtrip --root .

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/power-spec.schema.json",
+  "title": "Plot RAG PowerSpec v1",
+  "type": "object",
+  "required": ["schema_version", "power_model_status", "adapter_versions", "claim_bindings", "semantic_losses", "power_systems", "progression_tracks", "rank_nodes", "rank_edges", "ability_definitions", "resource_definitions", "status_definitions", "qualification_definitions", "counter_rules", "bridge_rules", "conversion_rules", "actor_power_bootstrap", "power_package_hash"],
+  "properties": {
+    "schema_version": {"const": "plot-rag-power/v1"},
+    "power_model_status": {"enum": ["modeled", "partial", "unmodeled", "not_applicable", "conflicted"]},
+    "adapter_versions": {"type": "object", "additionalProperties": {"type": "string"}},
+    "claim_bindings": {"type": "array"},
+    "semantic_losses": {"type": "array"},
+    "power_systems": {"type": "array", "items": {"$ref": "power-system.schema.json"}},
+    "progression_tracks": {"type": "array", "items": {"$ref": "progression-track.schema.json"}},
+    "rank_nodes": {"type": "array", "items": {"$ref": "rank-node.schema.json"}},
+    "rank_edges": {"type": "array", "items": {"$ref": "rank-edge.schema.json"}},
+    "ability_definitions": {"type": "array", "items": {"$ref": "ability-definition.schema.json"}},
+    "resource_definitions": {"type": "array", "items": {"$ref": "resource-definition.schema.json"}},
+    "status_definitions": {"type": "array", "items": {"$ref": "status-effect-definition.schema.json"}},
+    "qualification_definitions": {"type": "array", "items": {"$ref": "qualification-definition.schema.json"}},
+    "counter_rules": {"type": "array", "items": {"$ref": "counter-rule.schema.json"}},
+    "bridge_rules": {"type": "array", "items": {"$ref": "bridge-rule.schema.json"}},
+    "conversion_rules": {"type": "array", "items": {"$ref": "conversion-rule.schema.json"}},
+    "actor_power_bootstrap": {"type": "array", "items": {"$ref": "actor-power-bootstrap.schema.json"}},
+    "power_package_hash": {"$ref": "common.schema.json#/$defs/sha256"}
+  },
+  "additionalProperties": false
+}

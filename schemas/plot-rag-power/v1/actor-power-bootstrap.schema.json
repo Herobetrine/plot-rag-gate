@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/actor-power-bootstrap.schema.json",
+  "type": "object",
+  "required": ["actor_id", "actor_name", "progression_states", "ability_ownerships", "resources", "statuses", "bindings", "qualifications", "observed_capabilities"],
+  "properties": {
+    "actor_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "actor_name": {"type": "string", "minLength": 1},
+    "progression_states": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/progressionState"}
+    },
+    "ability_ownerships": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/abilityOwnership"}
+    },
+    "resources": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/resourceState"}
+    },
+    "statuses": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/statusState"}
+    },
+    "bindings": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/powerSourceBinding"}
+    },
+    "qualifications": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/qualificationState"}
+    },
+    "observed_capabilities": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/observedCapability"}
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "progressionState": {
+      "type": "object",
+      "required": ["track_id", "rank_node_id"],
+      "properties": {
+        "track_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "rank_node_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "story_coordinate": {"$ref": "common.schema.json#/$defs/storyCoordinate"},
+        "source_claim_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "abilityOwnership": {
+      "type": "object",
+      "required": ["ownership_id", "ability_id", "unlock_state"],
+      "properties": {
+        "ownership_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "ability_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "source_binding_id": {"type": ["string", "null"]},
+        "unlock_state": {"enum": ["locked", "unlocked", "suppressed", "lost"]},
+        "mastery": {},
+        "cooldown_until": {"type": ["object", "null"]},
+        "story_coordinate": {"type": ["object", "null"]},
+        "source_claim_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "resourceState": {
+      "type": "object",
+      "required": ["resource_state_id", "resource_id", "amount"],
+      "properties": {
+        "resource_state_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "resource_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "amount": {"type": "number"},
+        "capacity": {"type": ["number", "null"]},
+        "reserved": {"type": "number", "minimum": 0},
+        "story_coordinate": {"type": ["object", "null"]},
+        "source_claim_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "statusState": {
+      "type": "object",
+      "required": ["status_state_id", "status_id", "stacks"],
+      "properties": {
+        "status_state_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "status_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "stacks": {"type": "integer", "minimum": 1},
+        "source_entity_id": {"type": ["string", "null"]},
+        "story_coordinate": {"type": ["object", "null"]},
+        "expires_coordinate": {"type": ["object", "null"]},
+        "source_claim_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "powerSourceBinding": {
+      "type": "object",
+      "required": ["binding_id", "source_entity_id", "source_entity_type", "source_name", "ability_entity_ids", "action", "unique", "inactive_behavior", "source_claim_ids"],
+      "properties": {
+        "binding_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "source_entity_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "source_entity_type": {"enum": ["item", "ability", "bloodline", "contract", "faction", "role", "system", "summon"]},
+        "source_name": {"type": "string", "minLength": 1},
+        "ability_entity_ids": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/entityId"}, "uniqueItems": true},
+        "action": {"enum": ["bind", "unbind", "equip", "unequip", "contract", "summon", "dismiss", "suppress"]},
+        "slot_key": {"type": ["string", "null"]},
+        "unique": {"type": "boolean"},
+        "valid_from": {"type": ["object", "null"]},
+        "valid_until": {"type": ["object", "null"]},
+        "inactive_behavior": {"enum": ["disable_linked_abilities", "retain_learned_abilities", "degrade_linked_abilities", "custom"]},
+        "source_claim_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "qualificationState": {
+      "type": "object",
+      "required": ["qualification_state_id", "qualification_id", "action", "quantity", "source_claim_ids"],
+      "properties": {
+        "qualification_state_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "qualification_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "action": {"enum": ["grant", "revoke", "consume", "expire"]},
+        "quantity": {"type": "number", "exclusiveMinimum": 0},
+        "source_entity_id": {"type": ["string", "null"]},
+        "slot_key": {"type": ["string", "null"]},
+        "story_coordinate": {"type": ["object", "null"]},
+        "expires_coordinate": {"type": ["object", "null"]},
+        "source_claim_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "observedCapability": {
+      "type": "object",
+      "required": ["observation_id", "observer_entity_id", "subject_entity_id", "action", "knowledge_plane", "observed_fields", "confidence", "source_claim_ids"],
+      "properties": {
+        "observation_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "observer_entity_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "subject_entity_id": {"$ref": "common.schema.json#/$defs/entityId"},
+        "ability_id": {"type": ["string", "null"]},
+        "action": {"enum": ["observe", "infer", "confirm", "disprove"]},
+        "knowledge_plane": {"enum": ["objective", "actor_belief", "public_narrative", "reader_disclosed", "author_plan"]},
+        "observed_fields": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "story_coordinate": {"type": ["object", "null"]},
+        "source_event_id": {"type": ["string", "null"]},
+        "source_claim_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    }
+  }
+}

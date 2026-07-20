@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-init/v1/initialization-bundle.schema.json",
+  "title": "InitializationBundle v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "meta",
+    "genre_contract",
+    "world_model",
+    "actor_system",
+    "story_engine",
+    "serialization_contract",
+    "entities",
+    "relations",
+    "timeline",
+    "open_loops",
+    "field_states",
+    "source_manifest",
+    "source_ownership",
+    "conflicts",
+    "gaps",
+    "decisions",
+    "provenance",
+    "artifact_manifest",
+    "validation",
+    "bundle_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "plot-rag-init/v1"},
+    "meta": {"type": "object"},
+    "genre_contract": {"type": "object"},
+    "world_model": {
+      "type": "object",
+      "required": ["ontology", "modules", "resolution", "mvw", "pressure_tests"],
+      "properties": {
+        "ontology": {
+          "type": "object",
+          "required": [
+            "Coordinate",
+            "Rule",
+            "Stock",
+            "Flow",
+            "Actor",
+            "Relation",
+            "Belief",
+            "Event",
+            "Pressure"
+          ]
+        },
+        "modules": {
+          "type": "object",
+          "minProperties": 13
+        },
+        "resolution": {
+          "type": "object",
+          "required": ["kernel", "regional", "local", "scene", "texture"]
+        },
+        "mvw": {
+          "type": "object",
+          "minProperties": 16
+        },
+        "pressure_tests": {
+          "type": "array",
+          "minItems": 10,
+          "maxItems": 10
+        }
+      },
+      "additionalProperties": true
+    },
+    "actor_system": {"type": "object"},
+    "story_engine": {"type": "object"},
+    "serialization_contract": {"type": "object"},
+    "entities": {"type": "array"},
+    "relations": {"type": "array"},
+    "timeline": {"type": "array"},
+    "open_loops": {"type": "array"},
+    "field_states": {
+      "type": "object",
+      "propertyNames": {"pattern": "^/"},
+      "additionalProperties": {
+        "$ref": "common.schema.json#/$defs/fieldState"
+      }
+    },
+    "source_manifest": {
+      "type": "array",
+      "items": {"$ref": "source-descriptor.schema.json"}
+    },
+    "source_ownership": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    },
+    "conflicts": {"type": "array"},
+    "gaps": {"type": "array"},
+    "decisions": {"type": "array"},
+    "provenance": {
+      "type": "object",
+      "required": ["claims", "entity_aliases", "answer_refs", "extractor"],
+      "properties": {
+        "claims": {
+          "type": "array",
+          "items": {"$ref": "claim.schema.json"}
+        }
+      },
+      "additionalProperties": true
+    },
+    "artifact_manifest": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "artifact_id",
+          "path",
+          "logical_owner",
+          "operation",
+          "expected_old_hash",
+          "proposed_new_hash",
+          "unified_diff",
+          "materialized"
+        ],
+        "properties": {
+          "operation": {"enum": ["create", "update", "noop"]},
+          "materialized": {"const": false}
+        },
+        "additionalProperties": true
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": [
+        "schema_valid",
+        "domain_plain_values",
+        "proposal_ready",
+        "preapproval_canon_delta"
+      ],
+      "properties": {
+        "preapproval_canon_delta": {"const": 0}
+      },
+      "additionalProperties": true
+    },
+    "bundle_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    }
+  },
+  "additionalProperties": false
+}

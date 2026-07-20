@@ -1,0 +1,748 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-advantage.v1.json",
+  "title": "Plot RAG Advantage initialization sidecar v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "work_id",
+    "source_initialization_schema_version",
+    "source_snapshot_hash",
+    "definitions",
+    "anchors",
+    "modules",
+    "runtime_slots",
+    "runtime_bootstrap",
+    "ledger_bootstrap",
+    "knowledge",
+    "contracts",
+    "narrative_contracts",
+    "provenance",
+    "package_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "plot-rag-advantage/v1"
+    },
+    "work_id": {
+      "$ref": "#/$defs/nonEmptyString"
+    },
+    "source_initialization_schema_version": {
+      "enum": [
+        "plot-rag-init/v1",
+        "plot-rag-init/v2"
+      ]
+    },
+    "source_snapshot_hash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "definitions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/advantageDefinition"
+      }
+    },
+    "anchors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/advantageAnchor"
+      }
+    },
+    "modules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/advantageModule"
+      }
+    },
+    "runtime_slots": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/runtimeSlot"
+      }
+    },
+    "runtime_bootstrap": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/advantageRuntime"
+      }
+    },
+    "ledger_bootstrap": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/advantageLedger"
+      }
+    },
+    "knowledge": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/advantageKnowledge"
+      }
+    },
+    "contracts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/advantageContract"
+      }
+    },
+    "narrative_contracts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/advantageNarrativeContract"
+      }
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "package_hash": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nullableString": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "status": {
+      "enum": [
+        "canon",
+        "planned",
+        "rumor",
+        "misread"
+      ]
+    },
+    "knowledgePlane": {
+      "enum": [
+        "objective",
+        "actor_belief",
+        "public_narrative",
+        "reader_disclosed",
+        "author_plan"
+      ]
+    },
+    "anchorType": {
+      "enum": [
+        "item_instance",
+        "item_stack",
+        "body_or_vessel",
+        "actor",
+        "virtual_system",
+        "knowledge_set",
+        "temporal_rule",
+        "contract",
+        "location",
+        "power_source",
+        "social_graph"
+      ]
+    },
+    "profile": {
+      "enum": [
+        "system_panel",
+        "task_reward",
+        "reward_market",
+        "pocket_domain",
+        "resource_transformer",
+        "companion_mentor",
+        "growth_relic",
+        "appraisal_copy",
+        "simulator_branch",
+        "foreknowledge",
+        "inheritance",
+        "time_causality",
+        "contract_summon",
+        "social_currency",
+        "bloodline_constitution",
+        "sign_in_lottery"
+      ]
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "uniqueItems": true
+    },
+    "recordMetadata": {
+      "type": "object",
+      "required": [
+        "status",
+        "source_claim_ids",
+        "origin"
+      ],
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "source_claim_ids": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "origin": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "advantageDefinition": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/recordMetadata"
+        },
+        {
+          "type": "object",
+          "required": [
+            "advantage_id",
+            "profiles",
+            "title",
+            "anchor_type",
+            "acquisition_mode",
+            "uniqueness",
+            "promise",
+            "counterplay"
+          ],
+          "properties": {
+            "advantage_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "profiles": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/$defs/profile"
+              }
+            },
+            "title": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "anchor_type": {
+              "$ref": "#/$defs/anchorType"
+            },
+            "acquisition_mode": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "uniqueness": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "promise": {},
+            "counterplay": {}
+          }
+        }
+      ]
+    },
+    "advantageAnchor": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/recordMetadata"
+        },
+        {
+          "type": "object",
+          "required": [
+            "anchor_id",
+            "advantage_id",
+            "anchor_type",
+            "anchor_ref_id",
+            "anchor_name",
+            "owner_entity_id",
+            "binding_state",
+            "transfer_rule"
+          ],
+          "properties": {
+            "anchor_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "advantage_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "anchor_type": {
+              "$ref": "#/$defs/anchorType"
+            },
+            "anchor_ref_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "anchor_name": {
+              "$ref": "#/$defs/nullableString"
+            },
+            "owner_entity_id": {
+              "$ref": "#/$defs/nullableString"
+            },
+            "binding_state": {
+              "enum": [
+                "unbound",
+                "bound",
+                "dormant",
+                "sealed",
+                "contested",
+                "released"
+              ]
+            },
+            "transfer_rule": {}
+          }
+        }
+      ]
+    },
+    "advantageModule": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/recordMetadata"
+        },
+        {
+          "type": "object",
+          "required": [
+            "module_id",
+            "advantage_id",
+            "profile",
+            "name",
+            "kind",
+            "module_kind",
+            "module_status",
+            "trigger",
+            "preconditions",
+            "targets",
+            "range",
+            "costs",
+            "effects",
+            "side_effects",
+            "failure_modes",
+            "counters",
+            "anchor_ids",
+            "granted_ability_ids",
+            "knowledge_plane",
+            "reveal_stage"
+          ],
+          "properties": {
+            "module_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "advantage_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "profile": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/profile"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "name": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "kind": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "module_kind": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "module_status": {
+              "enum": [
+                "locked",
+                "available",
+                "enabled",
+                "suppressed",
+                "deprecated",
+                "superseded"
+              ]
+            },
+            "trigger": {},
+            "preconditions": {},
+            "targets": {},
+            "range": {},
+            "costs": {},
+            "effects": {},
+            "side_effects": {},
+            "failure_modes": {},
+            "counters": {},
+            "anchor_ids": {
+              "$ref": "#/$defs/stringArray"
+            },
+            "granted_ability_ids": {
+              "$ref": "#/$defs/stringArray"
+            },
+            "knowledge_plane": {
+              "$ref": "#/$defs/knowledgePlane"
+            },
+            "reveal_stage": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          }
+        }
+      ]
+    },
+    "runtimeSlot": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/recordMetadata"
+        },
+        {
+          "type": "object",
+          "required": [
+            "slot_id",
+            "advantage_id",
+            "name",
+            "slot_kind",
+            "stage",
+            "capacity",
+            "unlock_graph",
+            "set_membership"
+          ],
+          "properties": {
+            "slot_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "advantage_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "name": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "slot_kind": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "stage": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "capacity": {},
+            "unlock_graph": {
+              "type": "array"
+            },
+            "set_membership": {
+              "type": "array"
+            }
+          }
+        }
+      ]
+    },
+    "advantageRuntime": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/recordMetadata"
+        },
+        {
+          "type": "object",
+          "required": [
+            "runtime_id",
+            "advantage_id",
+            "branch_id",
+            "stage",
+            "enabled",
+            "charges",
+            "max_charges",
+            "cooldown_until",
+            "resources",
+            "pollution",
+            "exposure",
+            "debt",
+            "unlocked_modules",
+            "source_event_id"
+          ],
+          "properties": {
+            "runtime_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "advantage_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "branch_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "stage": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "charges": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "max_charges": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "cooldown_until": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "required": [
+                    "calendar_id",
+                    "ordinal"
+                  ],
+                  "properties": {
+                    "calendar_id": {
+                      "$ref": "#/$defs/nonEmptyString"
+                    },
+                    "ordinal": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              ]
+            },
+            "resources": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "pollution": {
+              "type": "number",
+              "minimum": 0
+            },
+            "exposure": {
+              "type": "number",
+              "minimum": 0
+            },
+            "debt": {
+              "type": "number",
+              "minimum": 0
+            },
+            "unlocked_modules": {
+              "$ref": "#/$defs/stringArray"
+            },
+            "source_event_id": {
+              "$ref": "#/$defs/nullableString"
+            }
+          }
+        }
+      ]
+    },
+    "advantageLedger": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/recordMetadata"
+        },
+        {
+          "type": "object",
+          "required": [
+            "entry_id",
+            "advantage_id",
+            "entry_kind",
+            "source_event_id",
+            "input",
+            "output",
+            "loss",
+            "provenance"
+          ],
+          "properties": {
+            "entry_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "advantage_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "entry_kind": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "source_event_id": {
+              "$ref": "#/$defs/nullableString"
+            },
+            "input": {},
+            "output": {},
+            "loss": {},
+            "provenance": {
+              "type": "object"
+            }
+          }
+        }
+      ]
+    },
+    "advantageKnowledge": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/recordMetadata"
+        },
+        {
+          "type": "object",
+          "required": [
+            "knowledge_id",
+            "advantage_id",
+            "module_id",
+            "knowledge_plane",
+            "claim",
+            "confidence",
+            "reveal_stage",
+            "observer_entity_id",
+            "misread_of"
+          ],
+          "properties": {
+            "knowledge_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "advantage_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "module_id": {
+              "$ref": "#/$defs/nullableString"
+            },
+            "knowledge_plane": {
+              "$ref": "#/$defs/knowledgePlane"
+            },
+            "claim": {},
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "reveal_stage": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "observer_entity_id": {
+              "$ref": "#/$defs/nullableString"
+            },
+            "misread_of": {
+              "$ref": "#/$defs/nullableString"
+            }
+          }
+        }
+      ]
+    },
+    "advantageContract": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/recordMetadata"
+        },
+        {
+          "type": "object",
+          "required": [
+            "contract_id",
+            "advantage_id",
+            "contract_kind",
+            "parties",
+            "terms",
+            "agency",
+            "trust",
+            "debt",
+            "breach_effect"
+          ],
+          "properties": {
+            "contract_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "advantage_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "contract_kind": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "parties": {
+              "$ref": "#/$defs/stringArray"
+            },
+            "terms": {},
+            "agency": {},
+            "trust": {},
+            "debt": {},
+            "breach_effect": {}
+          }
+        }
+      ]
+    },
+    "advantageNarrativeContract": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/recordMetadata"
+        },
+        {
+          "type": "object",
+          "required": [
+            "narrative_contract_id",
+            "advantage_id",
+            "reading_promise",
+            "reward_loop",
+            "risk_loop",
+            "reveal_ladder",
+            "experience_binding"
+          ],
+          "properties": {
+            "narrative_contract_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "advantage_id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "reading_promise": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "reward_loop": {},
+            "risk_loop": {},
+            "reveal_ladder": {},
+            "experience_binding": {}
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_claim_ids",
+        "extractor",
+        "profile_registry_schema_version",
+        "profile_registry_hash",
+        "rules"
+      ],
+      "properties": {
+        "source_claim_ids": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "extractor": {
+          "const": "plot-init-advantage-sidecar-v1"
+        },
+        "profile_registry_schema_version": {
+          "const": "plot-rag-advantage-profile-registry/v1"
+        },
+        "profile_registry_hash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "rules": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "stable_ids_are_local_deterministic",
+            "future_states_are_not_promoted",
+            "knowledge_planes_are_preserved",
+            "cross_projection_objects_are_references",
+            "remote_candidates_never_own_runtime_math"
+          ],
+          "properties": {
+            "stable_ids_are_local_deterministic": {
+              "const": true
+            },
+            "future_states_are_not_promoted": {
+              "const": true
+            },
+            "knowledge_planes_are_preserved": {
+              "const": true
+            },
+            "cross_projection_objects_are_references": {
+              "const": true
+            },
+            "remote_candidates_never_own_runtime_math": {
+              "const": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

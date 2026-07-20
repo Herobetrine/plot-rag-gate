@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "plot-rag-state": {
+      "command": "python",
+      "args": [
+        "-B",
+        "-X",
+        "utf8",
+        "./scripts/plot_rag_mcp.py"
+      ],
+      "cwd": "."
+    }
+  }
+}

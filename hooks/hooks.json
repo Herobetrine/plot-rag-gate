@@ -1,0 +1,50 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -B -X utf8 \"${CLAUDE_PLUGIN_ROOT}/hooks/plot_progression_gate.py\" --session-start",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -B -X utf8 \"${CLAUDE_PLUGIN_ROOT}/hooks/plot_progression_gate.py\" --session-end",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -B -X utf8 \"${CLAUDE_PLUGIN_ROOT}/hooks/plot_progression_gate.py\"",
+            "timeout": 75
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -B -X utf8 \"${CLAUDE_PLUGIN_ROOT}/hooks/plot_progression_gate.py\" --stop",
+            "timeout": 45
+          }
+        ]
+      }
+    ]
+  }
+}

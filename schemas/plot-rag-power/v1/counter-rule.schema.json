@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/counter-rule.schema.json",
+  "type": "object",
+  "required": ["counter_rule_id", "power_system_id", "name"],
+  "properties": {
+    "counter_rule_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "power_system_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "name": {"type": "string"},
+    "relation": {"enum": ["counter", "resist", "immune", "penetrate", "cancel"]},
+    "conditions": {"type": "array"},
+    "priority": {"type": "integer"}
+  },
+  "additionalProperties": true
+}

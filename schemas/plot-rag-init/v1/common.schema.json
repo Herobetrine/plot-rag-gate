@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-init/v1/common.schema.json",
+  "title": "Plot RAG Initialization Common Types",
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "fieldState": {
+      "type": "object",
+      "required": [
+        "field_status",
+        "origin",
+        "decision_status",
+        "canon_status",
+        "source_refs",
+        "confidence",
+        "scope",
+        "knowledge_plane",
+        "branch_id",
+        "depends_on",
+        "invalidates"
+      ],
+      "properties": {
+        "field_status": {
+          "enum": [
+            "user_confirmed",
+            "source_supported",
+            "model_proposed",
+            "unknown",
+            "conflicted",
+            "deferred",
+            "not_applicable"
+          ]
+        },
+        "origin": {
+          "enum": [
+            "user_input",
+            "source_extract",
+            "model_suggestion",
+            "deterministic_derived"
+          ]
+        },
+        "decision_status": {
+          "enum": ["open", "session_locked", "delegated"]
+        },
+        "canon_status": {
+          "enum": ["proposed", "accepted", "rejected", "retracted"]
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "scope": {
+          "type": ["string", "null"],
+          "enum": ["current", "planned", "historical", "timeless", null]
+        },
+        "knowledge_plane": {
+          "enum": [
+            "objective",
+            "actor_belief",
+            "public_narrative",
+            "reader_disclosed",
+            "author_plan"
+          ]
+        },
+        "branch_id": {"type": "string", "minLength": 1},
+        "depends_on": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "invalidates": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

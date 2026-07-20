@@ -1,0 +1,431 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-delta/v4/legacy-v3-delta.schema.json",
+  "title": "Frozen Legacy Plot RAG Delta v3 Candidate",
+  "type": "object",
+  "required": [
+    "event_type",
+    "action",
+    "subject",
+    "object",
+    "field",
+    "value",
+    "confidence",
+    "evidence"
+  ],
+  "properties": {
+    "event_type": {
+      "enum": [
+        "state",
+        "relation",
+        "movement",
+        "inventory",
+        "time",
+        "world_rule",
+        "ability",
+        "progression",
+        "resource",
+        "status_effect",
+        "power_binding",
+        "qualification",
+        "power_observation",
+        "character_state",
+        "relationship",
+        "location",
+        "story_time",
+        "status",
+        "binding",
+        "observation"
+      ]
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject": {
+      "$ref": "common.schema.json#/$defs/mention"
+    },
+    "object": {
+      "oneOf": [
+        {
+          "$ref": "common.schema.json#/$defs/mention"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "field": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 160
+    },
+    "value": true,
+    "confidence": {
+      "$ref": "common.schema.json#/$defs/confidence"
+    },
+    "evidence": {
+      "$ref": "common.schema.json#/$defs/evidence"
+    },
+    "scope": {
+      "enum": [
+        "current",
+        "planned",
+        "historical"
+      ]
+    },
+    "effective_at": {
+      "$ref": "common.schema.json#/$defs/effectiveAt"
+    },
+    "story_coordinate": {
+      "type": "object",
+      "properties": {
+        "calendar_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "ordinal": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "precision": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "source_event_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      },
+      "additionalProperties": false
+    },
+    "knowledge_plane": {
+      "$ref": "common.schema.json#/$defs/knowledgePlane"
+    },
+    "ambiguity": true
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": [
+              "state",
+              "character_state"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "enum": [
+              "set",
+              "state",
+              "character_state"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": [
+              "relation",
+              "relationship"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "enum": [
+              "set",
+              "update",
+              "remove"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": [
+              "movement",
+              "location"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "enum": [
+              "enter",
+              "arrive",
+              "move",
+              "teleport",
+              "depart",
+              "leave",
+              "set"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "inventory"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "enum": [
+              "transfer",
+              "acquire",
+              "set",
+              "consume",
+              "lose"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": [
+              "time",
+              "story_time"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "enum": [
+              "set",
+              "time",
+              "story_time"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "world_rule"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "enum": [
+              "set",
+              "world_rule"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "ability"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "enum": [
+              "gain",
+              "lose",
+              "set",
+              "unlock",
+              "upgrade",
+              "use",
+              "activate",
+              "deactivate",
+              "cooldown",
+              "refresh",
+              "charge",
+              "breakthrough"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "progression"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "enum": [
+              "initialize",
+              "advance",
+              "regress",
+              "branch",
+              "reset",
+              "prestige"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "resource"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "enum": [
+              "initialize",
+              "gain",
+              "spend",
+              "reserve",
+              "release",
+              "recover",
+              "set",
+              "convert"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": [
+              "status_effect",
+              "status"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "enum": [
+              "apply",
+              "remove",
+              "stack",
+              "refresh",
+              "expire"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": [
+              "power_binding",
+              "binding"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "enum": [
+              "bind",
+              "unbind",
+              "equip",
+              "unequip",
+              "contract",
+              "summon",
+              "dismiss",
+              "suppress"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "qualification"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "enum": [
+              "grant",
+              "revoke",
+              "consume",
+              "expire"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": [
+              "power_observation",
+              "observation"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "enum": [
+              "observe",
+              "infer",
+              "confirm",
+              "disprove"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

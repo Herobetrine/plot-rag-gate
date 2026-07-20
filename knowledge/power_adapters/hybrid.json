@@ -1,0 +1,18 @@
+{
+  "schema_version": "plot-rag-power-adapter/v1",
+  "adapter_id": "plot-rag-power.hybrid",
+  "version": "1.0.0",
+  "profile": "hybrid",
+  "display_name": "混合体系",
+  "aliases": ["复合体系", "多体系", "hybrid"],
+  "detection_terms": ["跨体系", "两套体系", "换算", "兼容", "桥接规则", "命名空间"],
+  "track_kinds": ["ordered_rank", "numeric_level", "branch_tree", "dag", "state_machine", "open_ended"],
+  "native_terms": {
+    "power_system": ["体系", "命名空间"],
+    "bridge_rule": ["桥接", "换算", "跨体系克制"],
+    "counter_rule": ["隔离", "兼容", "污染", "压制"]
+  },
+  "required_dimensions": ["namespaces", "isolation", "bridge", "conversion", "cross_counter", "information_barrier"],
+  "question_prompts": ["各体系的命名空间和入口如何独立？", "哪些比较、换算或克制有明确桥接规则？", "无桥接时哪些结论必须保持未知？"],
+  "no_rank_generation": false
+}

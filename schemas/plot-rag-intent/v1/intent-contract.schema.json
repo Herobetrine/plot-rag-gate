@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-intent/v1/intent-contract.schema.json",
+  "title": "Plot RAG Intent Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_family",
+    "fields"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "plot-rag-intent/v1"
+    },
+    "task_family": {
+      "enum": [
+        "plot",
+        "initialization"
+      ]
+    },
+    "fields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "problem_to_solve",
+        "expected_deliverable",
+        "reader_experience",
+        "protagonist_drive_conflict",
+        "scope_endpoint",
+        "success_criteria",
+        "hard_constraints",
+        "model_autonomy"
+      ],
+      "properties": {
+        "problem_to_solve": {
+          "$ref": "#/$defs/field"
+        },
+        "expected_deliverable": {
+          "$ref": "#/$defs/field"
+        },
+        "reader_experience": {
+          "$ref": "#/$defs/field"
+        },
+        "protagonist_drive_conflict": {
+          "$ref": "#/$defs/field"
+        },
+        "scope_endpoint": {
+          "$ref": "#/$defs/field"
+        },
+        "success_criteria": {
+          "$ref": "#/$defs/field"
+        },
+        "hard_constraints": {
+          "$ref": "#/$defs/field"
+        },
+        "model_autonomy": {
+          "$ref": "#/$defs/field"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "source"
+      ],
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "unknown",
+            "prompt",
+            "user_answer",
+            "recommended_delegation",
+            "workflow_default",
+            "quick_path_default",
+            "grill_skip_default",
+            "question_limit_default"
+          ]
+        }
+      }
+    }
+  }
+}

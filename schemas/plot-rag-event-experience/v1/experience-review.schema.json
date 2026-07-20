@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-event-experience/v1/experience-review.schema.json",
+  "title": "Plot RAG ExperienceReview v1",
+  "type": "object",
+  "required": [
+    "review_revision",
+    "proposal_id",
+    "receipt_id",
+    "assistant_sha256",
+    "contract_id",
+    "contract_hash",
+    "artifact_revision",
+    "observed_entry",
+    "observed_peak",
+    "observed_exit",
+    "supporting_quotes",
+    "supporting_quote_offsets",
+    "drift",
+    "severity",
+    "recommendation",
+    "supersedes_review_id"
+  ],
+  "properties": {
+    "review_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "review_revision": {
+      "$ref": "common.schema.json#/$defs/positiveInteger"
+    },
+    "proposal_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "receipt_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "assistant_sha256": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "contract_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "contract_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "artifact_revision": {
+      "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+    },
+    "observed_entry": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "observed_peak": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "observed_exit": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "supporting_quotes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4096
+      }
+    },
+    "supporting_quote_offsets": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "required": [
+          "start",
+          "end"
+        ],
+        "properties": {
+          "start": {
+            "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+          },
+          "end": {
+            "$ref": "common.schema.json#/$defs/positiveInteger"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "drift": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "severity": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "recommendation": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "supersedes_review_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "review_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "status": {
+      "enum": [
+        "recorded",
+        "superseded",
+        "retired"
+      ]
+    },
+    "retired_at": {
+      "$ref": "common.schema.json#/$defs/nullableTimestamp"
+    },
+    "retired_reason": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 4096
+    },
+    "created_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "updated_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    }
+  },
+  "additionalProperties": false
+}

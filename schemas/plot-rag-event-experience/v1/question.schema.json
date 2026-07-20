@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-event-experience/v1/question.schema.json",
+  "title": "Plot RAG Event Experience Clarification Question v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "phase",
+    "event_seed_manifest_hash",
+    "question",
+    "options",
+    "recommended_option_id",
+    "recommendation_rationale",
+    "one_question_per_turn",
+    "suppress_plot_receipt",
+    "suppress_remote_retrieval",
+    "suppress_stop_proposal"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "plot-rag-event-experience/v1"
+    },
+    "phase": {
+      "const": "event_experience"
+    },
+    "event_seed_manifest_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "question": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "options": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "option_id",
+          "label",
+          "value"
+        ],
+        "properties": {
+          "option_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "value": true
+        },
+        "additionalProperties": false
+      }
+    },
+    "recommended_option_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "recommendation_rationale": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "one_question_per_turn": {
+      "const": true
+    },
+    "suppress_plot_receipt": {
+      "const": true
+    },
+    "suppress_remote_retrieval": {
+      "const": true
+    },
+    "suppress_stop_proposal": {
+      "const": true
+    },
+    "seed_bindings": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "$ref": "common.schema.json#/$defs/seedBinding"
+      }
+    },
+    "question_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "status": {
+      "enum": [
+        "AWAITING_ANSWER",
+        "AWAITING_EVENT_EXPERIENCE",
+        "ANSWERED",
+        "RETIRED"
+      ]
+    },
+    "expired": {
+      "type": "boolean"
+    },
+    "effective_status": {
+      "enum": [
+        "AWAITING_ANSWER",
+        "AWAITING_EVENT_EXPERIENCE",
+        "ANSWERED",
+        "RETIRED",
+        "EXPIRED"
+      ]
+    },
+    "invalid_attempts": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "selected_option_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 64
+    },
+    "selected_at": {
+      "$ref": "common.schema.json#/$defs/nullableTimestamp"
+    },
+    "created_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "updated_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "expires_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    }
+  },
+  "additionalProperties": false
+}

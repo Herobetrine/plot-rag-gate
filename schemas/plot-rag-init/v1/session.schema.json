@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-init/v1/session.schema.json",
+  "title": "Plot RAG Initialization Session",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "session_id",
+    "requested_mode",
+    "mode",
+    "target_profile",
+    "interaction_profile",
+    "stage",
+    "status",
+    "workspace_root",
+    "session_revision",
+    "expected_canon_revision",
+    "source_snapshot_hash",
+    "answers",
+    "decisions",
+    "dependency_graph",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "schema_version": {"const": "plot-rag-init/v1"},
+    "session_id": {"type": "string", "minLength": 1},
+    "requested_mode": {"enum": ["auto", "new", "ingest", "hybrid"]},
+    "mode": {
+      "type": ["string", "null"],
+      "enum": ["new", "ingest", "hybrid", null]
+    },
+    "target_profile": {
+      "enum": [
+        "plot_ready",
+        "world_bible",
+        "normalize_only",
+        "continuity_ready"
+      ]
+    },
+    "interaction_profile": {"enum": ["minimal", "balanced", "deep"]},
+    "stage": {"type": "string"},
+    "status": {"type": "string"},
+    "workspace_root": {"type": "string"},
+    "project_root": {"type": ["string", "null"]},
+    "session_revision": {"type": "integer", "minimum": 0},
+    "expected_canon_revision": {"type": "integer", "minimum": 0},
+    "source_snapshot_hash": {"type": "string"},
+    "answers": {"type": "object"},
+    "decisions": {"type": "array"},
+    "dependency_graph": {"type": "object"},
+    "current_questions": {"type": "array"},
+    "bundle_hash": {"type": ["string", "null"]},
+    "proposal_id": {"type": ["string", "null"]},
+    "created_at": {"type": "string"},
+    "updated_at": {"type": "string"}
+  },
+  "additionalProperties": true
+}

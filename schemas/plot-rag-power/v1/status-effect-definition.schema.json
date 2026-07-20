@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/status-effect-definition.schema.json",
+  "title": "StatusEffectDefinition",
+  "type": "object",
+  "required": ["status_id", "power_system_id", "name"],
+  "properties": {
+    "status_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "power_system_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "name": {"type": "string", "minLength": 1},
+    "status_kind": {"type": "string", "minLength": 1},
+    "stack_policy": {"enum": ["replace", "stack", "refresh", "unique_source"]},
+    "max_stacks": {"type": ["integer", "null"], "minimum": 1},
+    "duration": {},
+    "effects": {"type": "array"},
+    "removal_conditions": {"type": "array"},
+    "native_term_bindings": {"type": "array"}
+  },
+  "additionalProperties": true
+}

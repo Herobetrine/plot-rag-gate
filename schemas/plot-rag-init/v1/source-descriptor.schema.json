@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-init/v1/source-descriptor.schema.json",
+  "title": "Plot RAG Initialization Source Descriptor",
+  "type": "object",
+  "required": [
+    "source_id",
+    "source_version_id",
+    "head_revision",
+    "active_revision",
+    "path",
+    "real_path",
+    "content_hash",
+    "size",
+    "encoding",
+    "format",
+    "parse_status"
+  ],
+  "properties": {
+    "source_id": {"type": "string", "pattern": "^src-[a-f0-9]+$"},
+    "source_version_id": {"type": "string", "pattern": "^srcv-[a-f0-9]+$"},
+    "head_revision": {"type": "integer", "minimum": 1},
+    "active_revision": {"type": ["integer", "null"], "minimum": 1},
+    "path": {"type": "string", "minLength": 1},
+    "real_path": {"type": "string", "minLength": 1},
+    "normalized_real_path": {"type": "string", "minLength": 1},
+    "content_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "size": {"type": "integer", "minimum": 0},
+    "mtime_ns": {"type": "integer", "minimum": 0},
+    "encoding": {"type": "string"},
+    "format": {"type": "string"},
+    "parse_status": {
+      "enum": ["parsed", "parse_error", "excluded"]
+    },
+    "parse_error": {"type": ["string", "null"]},
+    "source_role": {
+      "enum": ["canon", "setting", "outline", "draft", "note", "reference"]
+    },
+    "authority_tier": {
+      "enum": ["T0", "T1", "T2", "T3", "T4", "T5"]
+    },
+    "artifact_stage": {"type": "string"},
+    "scope_policy": {
+      "enum": [
+        "infer_and_review",
+        "planned_only",
+        "timeless_candidate",
+        "preserve_unknown"
+      ]
+    },
+    "ingest_policy": {
+      "enum": ["include", "review", "exclude"]
+    },
+    "branch_id": {"type": "string"},
+    "chapter_hint": {"type": ["integer", "null"], "minimum": 1},
+    "priority": {"type": "integer"},
+    "classification_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
+  },
+  "additionalProperties": true
+}

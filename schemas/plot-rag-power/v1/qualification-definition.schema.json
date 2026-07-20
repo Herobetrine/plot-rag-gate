@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/qualification-definition.schema.json",
+  "title": "QualificationDefinition",
+  "type": "object",
+  "required": ["qualification_id", "power_system_id", "name"],
+  "properties": {
+    "qualification_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "power_system_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "name": {"type": "string", "minLength": 1},
+    "qualification_kind": {"enum": ["permission", "profession", "license", "identity", "quest_flag", "attunement", "prepared_slot", "equipment_slot", "custom"]},
+    "grant_sources": {"type": "array"},
+    "consumption_rules": {"type": "array"},
+    "expiry_rules": {"type": "array"},
+    "prerequisites": {"type": "array"},
+    "effects": {"type": "array"},
+    "slot_key": {"type": "string"},
+    "max_quantity": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "native_term_bindings": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/nativeTermBinding"}}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-delta/v4/envelope.schema.json",
+  "title": "Plot RAG Mixed Delta Envelope v4",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "deltas"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "plot-rag-delta/v4"
+    },
+    "deltas": {
+      "type": "array",
+      "maxItems": 500,
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "legacy-v3-delta.schema.json"
+          },
+          {
+            "$ref": "item-candidate.schema.json"
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/power-system.schema.json",
+  "type": "object",
+  "required": ["power_system_id", "namespace", "name", "profile", "adapter_id", "adapter_version", "axioms", "visibility", "cross_system_policy", "model_status", "native_term_bindings"],
+  "properties": {
+    "power_system_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "namespace": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "profile": {"enum": ["cultivation", "magic", "skill_tree", "game", "martial", "superpower", "bloodline", "technology", "contract_summoning", "system_assist", "hybrid", "mundane"]},
+    "adapter_id": {"type": "string"},
+    "adapter_version": {"type": "string"},
+    "axioms": {"type": "array"},
+    "visibility": {"enum": ["objective", "actor_belief", "public_narrative", "reader_disclosed", "author_plan"]},
+    "cross_system_policy": {"enum": ["unknown", "isolated", "bridged"]},
+    "model_status": {"enum": ["modeled", "partial", "unmodeled", "not_applicable", "conflicted"]},
+    "native_term_bindings": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/nativeTermBinding"}},
+    "no_resource_pool": {"type": "boolean"}
+  },
+  "additionalProperties": true
+}

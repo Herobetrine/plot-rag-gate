@@ -1,0 +1,187 @@
+{
+  "files": [
+    {
+      "content": "# Fixture A\nBENCH_LOCATION ACTOR_A is currently at ZONE_A_PLATFORM; TRANSIT_A arrives after SIGNAL_A.\n",
+      "path": "canon/001-location.md"
+    },
+    {
+      "content": "# Fixture B\nBENCH_RELATION ACTOR_A and ACTOR_B are temporary allies protecting WITNESS_A.\n",
+      "path": "canon/002-relation.md"
+    },
+    {
+      "content": "# Fixture C\nBENCH_ITEM ITEM_A is physically held by ACTOR_A and opens ACCESS_POINT_A.\n",
+      "path": "canon/003-item.md"
+    },
+    {
+      "content": "# Fixture D\nBENCH_TIME the current story coordinate is TIME_A and DEADLINE_A is one interval away.\n",
+      "path": "canon/004-time.md"
+    },
+    {
+      "content": "# Fixture E\nBENCH_POWER ACTOR_A may use ABILITY_A three times; a fourth use triggers COST_A.\n",
+      "path": "setting/005-power.md"
+    },
+    {
+      "content": "# Fixture F\nTRANSIT_A requires INFRASTRUCTURE_A and CHECK_A; METHOD_B cannot bypass either rule.\n",
+      "path": "setting/006-transport.md"
+    },
+    {
+      "content": "# Fixture G\nACTOR_B once searched for ITEM_B, but that history does not change ITEM_A custody.\n",
+      "path": "canon/007-distractor.md"
+    }
+  ],
+  "fixture_id": "synthetic-authority-v2",
+  "manifest_version": 1,
+  "needs": [
+    {
+      "expected_path": "canon/001-location.md",
+      "id": "location",
+      "query": "BENCH_LOCATION ACTOR_A current location ZONE_A_PLATFORM"
+    },
+    {
+      "expected_path": "canon/002-relation.md",
+      "id": "relation",
+      "query": "BENCH_RELATION ACTOR_A ACTOR_B temporary allies"
+    },
+    {
+      "expected_path": "canon/003-item.md",
+      "id": "item",
+      "query": "BENCH_ITEM ITEM_A physical holder ACTOR_A ACCESS_POINT_A"
+    },
+    {
+      "expected_path": "canon/004-time.md",
+      "id": "story_time",
+      "query": "BENCH_TIME current story coordinate TIME_A DEADLINE_A"
+    },
+    {
+      "expected_path": "setting/005-power.md",
+      "id": "power",
+      "query": "BENCH_POWER ACTOR_A ABILITY_A three uses COST_A"
+    }
+  ],
+  "scenarios": [
+    {
+      "embedding_batch_mode": "ok",
+      "id": "needs-1-batched",
+      "need_ids": [
+        "location"
+      ],
+      "rerank_max_concurrency": 5,
+      "single_failure_need_ids": []
+    },
+    {
+      "embedding_batch_mode": "ok",
+      "id": "needs-3-batched",
+      "need_ids": [
+        "location",
+        "relation",
+        "item"
+      ],
+      "rerank_max_concurrency": 5,
+      "single_failure_need_ids": []
+    },
+    {
+      "embedding_batch_mode": "ok",
+      "id": "needs-5-batched",
+      "need_ids": [
+        "location",
+        "relation",
+        "item",
+        "story_time",
+        "power"
+      ],
+      "rerank_max_concurrency": 5,
+      "single_failure_need_ids": []
+    },
+    {
+      "embedding_batch_mode": "ok",
+      "id": "needs-5-cap-2",
+      "need_ids": [
+        "location",
+        "relation",
+        "item",
+        "story_time",
+        "power"
+      ],
+      "rerank_max_concurrency": 2,
+      "single_failure_need_ids": []
+    },
+    {
+      "embedding_batch_mode": "fail",
+      "id": "needs-5-batch-fallback",
+      "need_ids": [
+        "location",
+        "relation",
+        "item",
+        "story_time",
+        "power"
+      ],
+      "rerank_max_concurrency": 5,
+      "single_failure_need_ids": [
+        "story_time"
+      ]
+    },
+    {
+      "embedding_batch_mode": "wrong_length",
+      "id": "needs-5-batch-wrong-length",
+      "need_ids": [
+        "location",
+        "relation",
+        "item",
+        "story_time",
+        "power"
+      ],
+      "rerank_max_concurrency": 5,
+      "single_failure_need_ids": []
+    },
+    {
+      "embedding_batch_mode": "bad_index",
+      "id": "needs-5-batch-bad-index",
+      "need_ids": [
+        "location",
+        "relation",
+        "item",
+        "story_time",
+        "power"
+      ],
+      "rerank_max_concurrency": 5,
+      "single_failure_need_ids": []
+    },
+    {
+      "embedding_batch_mode": "duplicate_index",
+      "id": "needs-5-batch-duplicate-index",
+      "need_ids": [
+        "location",
+        "relation",
+        "item",
+        "story_time",
+        "power"
+      ],
+      "rerank_max_concurrency": 5,
+      "single_failure_need_ids": []
+    }
+  ],
+  "schema_version": "plot-rag-v15-performance-fixture/v1",
+  "settings": {
+    "embedding_batch_max_chars": 24000,
+    "embedding_batch_size": 32,
+    "limit": 3,
+    "rerank_delay_ms": 20
+  },
+  "sources": [
+    {
+      "glob": "canon/**/*.md",
+      "ingest_policy": "include",
+      "priority": 100,
+      "role": "canon",
+      "scope_policy": "current"
+    },
+    {
+      "glob": "setting/**/*.md",
+      "ingest_policy": "include",
+      "priority": 80,
+      "role": "setting",
+      "scope_policy": "timeless"
+    }
+  ],
+  "suite": "plot-rag-v15-performance"
+}

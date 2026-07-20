@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-extraction/v1/common.schema.json",
+  "title": "Plot RAG Extraction Queue Common Types",
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "sha256OrEmpty": {
+      "type": "string",
+      "pattern": "^(?:[a-f0-9]{64})?$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "nullableTimestamp": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "identifier": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nullableIdentifier": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "nonNegativeInteger": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "nullableNonNegativeInteger": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonNegativeInteger"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

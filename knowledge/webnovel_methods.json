@@ -1,0 +1,383 @@
+{
+  "schema_version": 1,
+  "pack_id": "plot-rag-gate.webnovel-methods",
+  "pack_version": "1.3.0",
+  "description": "长篇网文章级连续性、兑现节奏、成长账本与群像调度方法包。卡片只注入内部创作上下文。",
+  "cards": [
+    {
+      "id": "chapter_opening_continuity",
+      "title": "章首承接",
+      "summary": "章首先落地上一章仍在进行的动作、风险或情绪余波，再让本章目标进入可执行状态。",
+      "genres": ["all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["scene", "prose", "revision"],
+      "continuity_risks": ["chapter_boundary", "location", "story_time"],
+      "query_terms": ["章首", "承接", "上一章", "开场", "连续性"],
+      "internal_checks": [
+        "上一章末尾动作是否得到可观察响应",
+        "人物位置和故事时间是否连续",
+        "本章新增目标是否晚于承接动作出现"
+      ],
+      "misuse_boundaries": [
+        "上一章已明确跳时或换视角时，不机械复述原场景",
+        "承接只保留必要因果，不把章首写成前情提要"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/chapter-opening-continuity",
+        "kind": "derived-method",
+        "basis": "章首先用可观察的动作或结果承接上一章最后一个未完成动作，再引入本章新增目标。",
+        "sha256": "08a71302837955bc7310a43af8910a3e4231dfa57b694f0ce76384a35332fdce"
+      }
+    },
+    {
+      "id": "chapter_end_hook",
+      "title": "章末钩子",
+      "summary": "章末用新事实、迫近后果或不可回避的选择改变下一步预期，并留下下一章可立即处理的问题。",
+      "genres": ["all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["outline", "scene", "prose", "revision"],
+      "continuity_risks": ["open_loop", "chapter_boundary", "promise"],
+      "query_terms": ["章末", "钩子", "悬念", "下一章", "追读"],
+      "internal_checks": [
+        "钩子是否源于本章因果而非凭空插入",
+        "下一章是否存在明确的首要响应",
+        "钩子是否与已有未兑现承诺重复"
+      ],
+      "misuse_boundaries": [
+        "不把随机袭击、昏迷或半句话当作通用钩子",
+        "已完成情绪收束的章节可用余波钩子，不强行制造生死危机"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/chapter-end-hook",
+        "kind": "derived-method",
+        "basis": "章末钩子必须改变读者对下一步的预期，并让下一章存在可执行的首要问题。",
+        "sha256": "59f2313bd8498d620c60d13ae89aa098a5343a9c61465088946f60bda5b32b10"
+      }
+    },
+    {
+      "id": "promise_payoff_window",
+      "title": "悬念兑现窗口",
+      "summary": "为承诺和谜团记录建立、升级、预期兑现窗口与延期代价，在窗口内提供完整或阶段性兑现。",
+      "genres": ["all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["outline", "revision"],
+      "continuity_risks": ["open_loop", "promise", "story_time"],
+      "query_terms": ["伏笔", "承诺", "悬念", "兑现", "延期", "窗口"],
+      "internal_checks": [
+        "本章触碰了哪些活跃承诺",
+        "承诺处于建立、升级、部分兑现还是关闭",
+        "延期后读者获得了什么新信息或局势变化"
+      ],
+      "misuse_boundaries": [
+        "长期谜底可延后，但阶段问题必须按窗口兑现",
+        "不要用新增谜团永久替代旧承诺的回答"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/promise-payoff-window",
+        "kind": "derived-method",
+        "basis": "每个读者承诺记录建立、升级、预期兑现窗口与延期代价，窗口内至少提供部分兑现。",
+        "sha256": "849890d0614a4b3bfc067dfbcbebdcfa784b8509260c6a84830c362c4694d52e"
+      }
+    },
+    {
+      "id": "satisfaction_pressure_release",
+      "title": "爽点蓄压与释放",
+      "summary": "先让压制、误判或资源困局可感知，再由主角主动选择触发反转，并用旁观反应和实际收益确认释放。",
+      "genres": ["all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["outline", "scene", "prose", "revision"],
+      "continuity_risks": ["payoff", "causality", "power_balance"],
+      "query_terms": ["爽点", "蓄压", "释放", "反转", "打脸", "收益"],
+      "internal_checks": [
+        "蓄压来源是否具体且与主角欲望有关",
+        "反转是否由已建立能力、信息或选择造成",
+        "释放后是否确认收益、代价和关系变化"
+      ],
+      "misuse_boundaries": [
+        "不把配角集体降智当作蓄压",
+        "连续释放之间需要新的目标或更高代价，避免同构重复"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/pressure-release",
+        "kind": "derived-method",
+        "basis": "爽点由可感知压制、主角主动选择、局势反转与后果确认构成，释放强度应匹配蓄压时长。",
+        "sha256": "60cc461185e47e9d659e465ed7662577c1858a93af7d73c65937e824bbe5aff9"
+      }
+    },
+    {
+      "id": "progression_resource_ledger",
+      "title": "升级资源账",
+      "summary": "把升级视为资源流：记录来源、库存、消耗、转化条件、剩余额度和下一阶段缺口。",
+      "genres": ["玄幻", "仙侠", "科幻", "游戏", "奇幻", "all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["outline", "scene", "prose", "revision"],
+      "continuity_risks": ["power_state", "inventory", "resource", "progression", "power_balance"],
+      "query_terms": ["升级", "突破", "资源", "库存", "消耗", "境界"],
+      "internal_checks": [
+        "资源来源和数量是否已进入正典",
+        "转化过程是否消耗时间、机会或风险",
+        "升级后剩余资源与下一缺口是否可查询"
+      ],
+      "misuse_boundaries": [
+        "非数值型成长也要记录条件与代价，不强制货币化",
+        "临场突破必须有此前建立的资源或认知前提"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/progression-ledger",
+        "kind": "derived-method",
+        "basis": "升级必须同时记录资源来源、消耗、转化路径、剩余额度与下一阶段缺口。",
+        "sha256": "d91262043c36bb5843196640d3782c72e7dc701546a210d1314a2851deba645d"
+      }
+    },
+    {
+      "id": "ability_cost_consistency",
+      "title": "能力代价与边界",
+      "summary": "每次调用能力前核对效果、触发条件、代价、冷却和失效边界，调用后把消耗与状态变化写回。",
+      "genres": ["玄幻", "仙侠", "科幻", "游戏", "奇幻", "悬疑", "all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["scene", "prose", "revision"],
+      "continuity_risks": ["power_state", "ability", "resource", "cost", "power_balance"],
+      "query_terms": ["能力", "术式", "技能", "代价", "冷却", "限制"],
+      "internal_checks": [
+        "触发前提是否满足",
+        "效果是否超过已确认边界",
+        "代价、冷却和暴露风险是否写回"
+      ],
+      "misuse_boundaries": [
+        "未知能力可保留不确定性，但不得随场景任意扩张效果",
+        "代价必须影响后续选择，不能只停留在说明文字"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/ability-cost",
+        "kind": "derived-method",
+        "basis": "能力的效果、触发条件、代价、冷却和失效边界必须在调用前后保持可核验。",
+        "sha256": "d66e6358401a2841d5a36c131ba9d6b6b508d487e1f095ecb94750849e4d311e"
+      }
+    },
+    {
+      "id": "power_combat_conditions",
+      "title": "战斗条件矩阵",
+      "summary": "按输出、防御、速度、控制、射程、续航、信息、环境、撤退与克制逐项建立胜负条件，不把角色压缩成单一战力值。",
+      "genres": ["玄幻", "仙侠", "科幻", "游戏", "奇幻", "武侠", "all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["outline", "scene", "prose", "revision"],
+      "continuity_risks": ["power_state", "ability", "resource", "status", "power_balance"],
+      "query_terms": ["战斗", "追逐", "交锋", "克制", "撤退", "环境", "战力比较"],
+      "internal_checks": [
+        "双方当前可用能力、资源、冷却和伤势是否已召回",
+        "决定胜负的条件来自已建立规则还是临时补丁",
+        "撤退、暴露和战后代价是否进入结果"
+      ],
+      "misuse_boundaries": [
+        "不输出脱离环境、准备、信息和代价的无条件胜者",
+        "未知能力只记录已观察效果，不补全完整机制"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/power-combat-conditions",
+        "kind": "derived-method",
+        "basis": "战斗推演按输出、防御、速度、控制、射程、续航、信息、环境、撤退与克制条件逐项核对，不生成无条件战力结论。",
+        "sha256": "6df4222583bddbc54f0928907005fe5633b0b5c0da56cc18acf6f9d20439c517"
+      }
+    },
+    {
+      "id": "progression_transition_gate",
+      "title": "晋升边门禁",
+      "summary": "突破或升级必须匹配当前节点到目标节点的 accepted 晋升边，并核对全部前置、资源、故事坐标、失败结果和身份后果。",
+      "genres": ["玄幻", "仙侠", "游戏", "奇幻", "武侠", "科幻", "all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["outline", "scene", "prose", "revision"],
+      "continuity_risks": ["power_state", "progression", "resource", "qualification"],
+      "query_terms": ["突破", "升级", "晋升", "转职", "境界", "等级", "前置"],
+      "internal_checks": [
+        "当前节点和目标节点之间是否存在已验收晋升边",
+        "资源、资格、时间、地点、导师和任务前置是否满足",
+        "失败、部分成功和社会身份变化是否有后续承接"
+      ],
+      "misuse_boundaries": [
+        "没有完整阶段图时保持 unknown 或 unmodeled",
+        "临场爆发不自动等于永久晋升"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/progression-transition-gate",
+        "kind": "derived-method",
+        "basis": "突破和升级必须匹配当前节点到目标节点的已验收晋升边，并逐项核对前置、资源、时间、地点、失败结果和身份后果。",
+        "sha256": "59c3e348410bedcdbe08a09b0bac9317093cc651c87b4b7993171ce935681237"
+      }
+    },
+    {
+      "id": "skill_tree_unlock_chain",
+      "title": "技能树解锁链",
+      "summary": "技能获得与升级沿 accepted 前置链、职业分支、熟练度、技能槽和互斥选择推进。",
+      "genres": ["游戏", "奇幻", "玄幻", "科幻", "all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["outline", "scene", "prose", "revision"],
+      "continuity_risks": ["power_state", "ability", "progression", "qualification"],
+      "query_terms": ["技能树", "解锁", "前置技能", "职业", "熟练度", "技能槽", "洗点"],
+      "internal_checks": [
+        "前置技能、职业和熟练度是否满足",
+        "分支是否互斥以及是否消耗技能点或槽位",
+        "重置或洗点是否同步撤销下游能力"
+      ],
+      "misuse_boundaries": [
+        "不因角色等级足够就默认所有技能可学",
+        "自由领悟必须有项目内规则或逐字证据"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/skill-tree-unlock-chain",
+        "kind": "derived-method",
+        "basis": "技能解锁必须沿已验收前置链、职业分支、技能槽和熟练度推进，分支选择需要保留互斥与重置代价。",
+        "sha256": "4f030ebde8578a0918fdcec502e6ba3e23ea2999693d4f375a4dbf48c1034729"
+      }
+    },
+    {
+      "id": "cooldown_recovery_debt",
+      "title": "冷却与恢复债务",
+      "summary": "使用能力后把资源消耗、冷却、充能、伤势、污染与恢复窗口保存为后续章节必须承接的力量债务。",
+      "genres": ["玄幻", "仙侠", "科幻", "游戏", "奇幻", "all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["outline", "scene", "prose", "revision"],
+      "continuity_risks": ["power_state", "ability", "resource", "status", "story_time"],
+      "query_terms": ["冷却", "恢复", "充能", "过载", "污染", "法力耗尽", "伤势"],
+      "internal_checks": [
+        "消耗和冷却是否有明确故事坐标",
+        "恢复来源、速度和中断条件是否可查询",
+        "债务解除前是否阻止无代价连续使用"
+      ],
+      "misuse_boundaries": [
+        "不把换场或章间空白自动视为完全恢复",
+        "恢复窗口缺失时保持 unknown，不猜测冷却结束"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/cooldown-recovery-debt",
+        "kind": "derived-method",
+        "basis": "能力使用后把资源消耗、冷却、充能、伤势、污染和恢复窗口保存为后续章节必须承接的力量债务。",
+        "sha256": "3ba37ed35be5a861489a0835e07558a9b827cdfa8f3cd2ae1ea936a85ce35fe2"
+      }
+    },
+    {
+      "id": "hybrid_power_bridge",
+      "title": "混合体系桥接",
+      "summary": "多套力量体系只按 accepted BridgeRule、ConversionRule 和 CounterRule 比较、换算或克制。",
+      "genres": ["玄幻", "仙侠", "科幻", "游戏", "奇幻", "all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["outline", "scene", "prose", "revision"],
+      "continuity_risks": ["power_state", "bridge_rule", "conversion", "power_balance"],
+      "query_terms": ["混合体系", "跨体系", "换算", "桥接", "十级", "筑基", "克制"],
+      "internal_checks": [
+        "两个 namespace 之间是否存在有方向的桥接规则",
+        "换算是否有损、是否可逆以及是否存在套利环",
+        "比较结论是否携带环境和知识边界"
+      ],
+      "misuse_boundaries": [
+        "缺少 BridgeRule 时返回不可直接比较",
+        "名称相似或数字相同不构成等价证据"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/hybrid-power-bridge",
+        "kind": "derived-method",
+        "basis": "多套力量体系之间仅按已验收 BridgeRule 和 ConversionRule 比较、换算或克制；缺少桥接时保持不可直接比较。",
+        "sha256": "e93b7df9d48cbf41cbf0d63d8f75c21b2209afa697f27965e928b4d035d17f8d"
+      }
+    },
+    {
+      "id": "power_social_consequence",
+      "title": "力量的社会后果",
+      "summary": "每次实质升级同时检查可进入空间、组织权限、身份、责任、法律风险、暴露面和关系变化。",
+      "genres": ["all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["outline", "scene", "prose", "revision"],
+      "continuity_risks": ["power_state", "progression", "qualification", "relationship"],
+      "query_terms": ["升级后果", "权限", "身份", "阶层", "责任", "暴露", "法律"],
+      "internal_checks": [
+        "升级是否改变角色可进入区域或组织权限",
+        "新能力是否带来责任、监管、债务或暴露",
+        "关系与制度是否对力量变化作出反应"
+      ],
+      "misuse_boundaries": [
+        "不是每次小幅熟练度变化都需要宏大社会震荡",
+        "社会后果必须来自作品已有制度和观察者"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/power-social-consequence",
+        "kind": "derived-method",
+        "basis": "升级和高阶能力应同步改变可进入空间、组织权限、社会身份、责任、暴露风险与关系后果，而不只增加数值。",
+        "sha256": "5d249f3e3465971e4e8b580461ecb142629e4ca5ac7dca650348acf241d44408"
+      }
+    },
+    {
+      "id": "ensemble_rotation",
+      "title": "群像轮转",
+      "summary": "依据角色债务、关系变化和主线贡献轮转视角与出场，离场时保存位置、目标和未完成动作。",
+      "genres": ["all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["outline", "scene", "revision"],
+      "continuity_risks": ["ensemble", "location", "knowledge_boundary"],
+      "query_terms": ["群像", "轮转", "配角", "视角", "出场", "离场"],
+      "internal_checks": [
+        "本轮出场是否推进角色债务或主线",
+        "切换视角时知识边界是否独立",
+        "离场角色的位置和目标是否可追踪"
+      ],
+      "misuse_boundaries": [
+        "不按平均篇幅机械轮转，优先处理到期剧情债务",
+        "同一事件多视角复述必须提供新增信息或价值冲突"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/ensemble-rotation",
+        "kind": "derived-method",
+        "basis": "群像轮转按角色债务、关系变化和主线贡献分配出场，离场角色保留可追踪的离场状态。",
+        "sha256": "40357091ca37291f62eb2e6aedd980e2ea4b10492cd2ab1a07c20d2d5d2eb874"
+      }
+    },
+    {
+      "id": "repetition_control",
+      "title": "重复度控制",
+      "summary": "为近章场景建立结构指纹；再次使用同类场景时，至少改变目标、阻力、信息、代价或关系结果之一。",
+      "genres": ["all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["outline", "revision"],
+      "continuity_risks": ["repetition", "pacing", "payoff"],
+      "query_terms": ["重复", "同质", "节奏", "套路", "近章", "结构"],
+      "internal_checks": [
+        "与近十章是否存在相同目标和阻力组合",
+        "本次重复带来了哪一种不可逆变化",
+        "相似桥段的语言与结果是否也发生变化"
+      ],
+      "misuse_boundaries": [
+        "主题回环可以重复意象，但需要新的语境和价值结果",
+        "固定仪式或日常可保留稳定部分，不必为变化而破坏世界规律"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/repetition-control",
+        "kind": "derived-method",
+        "basis": "重复场景必须至少改变目标、阻力、信息、代价或关系结果之一，并跟踪近章结构指纹。",
+        "sha256": "a8a710465b4ee1ec12fac444f5ff7fa786a53f069bfcb4208e7d539c142a5103"
+      }
+    },
+    {
+      "id": "volume_climax",
+      "title": "卷末高潮",
+      "summary": "卷末同时回收本卷核心承诺、迫使主角做出不可逆选择，并以选择后果制造下一卷的新失衡。",
+      "genres": ["all"],
+      "artifact_stages": ["outline", "draft", "final"],
+      "tasks": ["outline", "scene", "revision"],
+      "continuity_risks": ["volume_boundary", "promise", "causality", "power_balance"],
+      "query_terms": ["卷末", "高潮", "收束", "兑现", "不可逆", "下一卷"],
+      "internal_checks": [
+        "核心承诺是否以行动结果兑现",
+        "主角是否承担不可逆选择与代价",
+        "旧失衡结束后是否产生方向明确的新失衡"
+      ],
+      "misuse_boundaries": [
+        "不靠无关更强敌人突然登场替代本卷因果高潮",
+        "卷末可保留大谜底，但本卷核心冲突必须给出结果"
+      ],
+      "source": {
+        "ref": "internal://webnovel-method-pack/volume-climax",
+        "kind": "derived-method",
+        "basis": "卷末高潮同时兑现本卷核心承诺、迫使主角付出不可逆选择，并制造下一卷的新失衡。",
+        "sha256": "828b2b31e422c65dcfc95a4cd42f28dca4b97e4e2b15a95a21e2873fab467aa2"
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "plot-rag-power-adapter/v1",
+  "adapter_id": "plot-rag-power.game",
+  "version": "1.0.0",
+  "profile": "game",
+  "display_name": "游戏升级",
+  "aliases": ["网游", "数据流", "RPG", "game system"],
+  "detection_terms": ["等级", "经验值", "职业", "转职", "属性点", "副本", "装备位", "任务奖励", "冷却", "声望"],
+  "track_kinds": ["numeric_level", "branch_tree", "ordered_rank", "dag"],
+  "native_terms": {
+    "progression_track": ["角色等级", "职业等级", "技能等级", "声望"],
+    "rank_node": ["等级", "转职阶段"],
+    "ability": ["技能", "职业技", "装备技"],
+    "resource_pool": ["经验", "蓝量", "体力", "技能点", "属性点"],
+    "qualification": ["任务旗标", "成就", "装备位", "副本权限"]
+  },
+  "required_dimensions": ["level_axes", "experience_source", "class_tree", "quest_evidence", "equipment_slot", "instance_scope"],
+  "question_prompts": ["角色、职业、技能与装备等级如何分离？", "经验和奖励由何种完成证据触发？", "副本规则是否会外溢到世界常态？"],
+  "no_rank_generation": false
+}

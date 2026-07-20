@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-event-experience/v1/common.schema.json",
+  "title": "Plot RAG Event Experience Common Types",
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "optionalText": {
+      "type": "string",
+      "maxLength": 4096
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "nullableTimestamp": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nonNegativeInteger": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "positiveInteger": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    "nullableNonNegativeInteger": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonNegativeInteger"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "textArray": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1024
+      }
+    },
+    "intensity": {
+      "type": "object",
+      "required": [
+        "entry",
+        "peak",
+        "exit"
+      ],
+      "properties": {
+        "entry": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "peak": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "exit": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false
+    },
+    "seedBinding": {
+      "type": "object",
+      "required": [
+        "event_seed_id",
+        "event_seed_revision",
+        "seed_hash"
+      ],
+      "properties": {
+        "event_seed_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "event_seed_revision": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "seed_hash": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "contractBinding": {
+      "type": "object",
+      "required": [
+        "event_seed_id",
+        "event_seed_revision",
+        "seed_hash",
+        "dependency_order",
+        "contract_id",
+        "contract_revision",
+        "contract_hash",
+        "parent_chain_id",
+        "branch_id",
+        "artifact_id",
+        "artifact_revision",
+        "source_intent_contract_id",
+        "source_intent_contract_revision",
+        "source_intent_contract_hash"
+      ],
+      "properties": {
+        "event_seed_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "event_seed_revision": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "seed_hash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "dependency_order": {
+          "$ref": "#/$defs/nonNegativeInteger"
+        },
+        "contract_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "contract_revision": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "contract_hash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "parent_chain_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "branch_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "artifact_id": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "artifact_revision": {
+          "$ref": "#/$defs/nonNegativeInteger"
+        },
+        "source_intent_contract_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "source_intent_contract_revision": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "source_intent_contract_hash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_outline_commit_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "source_outline_artifact_version_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "source_outline_artifact_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "source_outline_artifact_revision": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "source_outline_content_hash": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "acceptedOutlineBinding": {
+      "type": "object",
+      "required": [
+        "source_outline_commit_id",
+        "source_outline_artifact_version_id",
+        "source_outline_artifact_id",
+        "source_outline_artifact_revision",
+        "source_outline_content_hash"
+      ],
+      "properties": {
+        "source_outline_commit_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "source_outline_artifact_version_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "source_outline_artifact_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "source_outline_artifact_revision": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "source_outline_content_hash": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

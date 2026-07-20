@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/resource-definition.schema.json",
+  "type": "object",
+  "required": ["resource_id", "power_system_id", "name"],
+  "properties": {
+    "resource_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "power_system_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "name": {"type": "string", "minLength": 1},
+    "resource_kind": {"enum": ["stock", "flow", "capacity", "counter", "debt"]},
+    "acquisition": {"type": "array"},
+    "consumption": {"type": "array"},
+    "recovery": {"type": "array"}
+  },
+  "additionalProperties": true
+}

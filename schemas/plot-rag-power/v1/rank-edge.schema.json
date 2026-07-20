@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/rank-edge.schema.json",
+  "type": "object",
+  "required": ["rank_edge_id", "track_id", "from_node_ids", "to_node_id", "prerequisites", "resource_costs", "risks", "failure_outcomes", "allows_skip"],
+  "properties": {
+    "rank_edge_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "track_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "from_node_ids": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/entityId"}},
+    "to_node_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "prerequisites": {"type": "object"},
+    "resource_costs": {"type": "array"},
+    "risks": {"type": "array"},
+    "failure_outcomes": {"type": "array"},
+    "allows_skip": {"type": "boolean"}
+  },
+  "additionalProperties": true
+}

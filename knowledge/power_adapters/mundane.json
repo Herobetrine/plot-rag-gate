@@ -1,0 +1,18 @@
+{
+  "schema_version": "plot-rag-power-adapter/v1",
+  "adapter_id": "plot-rag-power.mundane",
+  "version": "1.0.0",
+  "profile": "mundane",
+  "display_name": "无超凡",
+  "aliases": ["现实题材", "无超凡", "mundane"],
+  "detection_terms": ["现实题材", "没有超能力", "无超凡", "职业资历", "社会权限"],
+  "track_kinds": ["none", "numeric_level", "open_ended"],
+  "native_terms": {
+    "progression_track": ["职业资历", "技能熟练", "社会权限"],
+    "resource_pool": ["时间", "金钱", "体力", "关系"],
+    "qualification": ["执照", "职位", "权限"]
+  },
+  "required_dimensions": ["explicit_not_applicable"],
+  "question_prompts": ["作品是否明确不使用超凡、境界或数值等级？"],
+  "no_rank_generation": true
+}

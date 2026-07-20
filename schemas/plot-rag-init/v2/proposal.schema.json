@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-init/v2/proposal.schema.json",
+  "title": "Frozen Plot RAG Initialization Proposal v2",
+  "type": "object",
+  "required": ["schema_version", "proposal_id", "package_hash", "status", "session_ref", "source_manifest_hash", "bundle", "proposed_canon_deltas", "apply_plan", "validation", "created_at"],
+  "properties": {
+    "schema_version": {"const": "plot-rag-init/v2"},
+    "proposal_id": {"type": "string"},
+    "package_hash": {"$ref": "common.schema.json#/$defs/sha256"},
+    "status": {"const": "PROPOSAL_FROZEN"},
+    "session_ref": {"type": "object"},
+    "target_project_real_path": {"type": ["string", "null"]},
+    "source_manifest_hash": {"$ref": "common.schema.json#/$defs/sha256"},
+    "bundle": {"$ref": "initialization-bundle.schema.json"},
+    "proposed_canon_deltas": {"type": "array"},
+    "apply_plan": {"type": "object"},
+    "validation": {"type": "object"},
+    "created_at": {"type": "string"}
+  },
+  "additionalProperties": false
+}

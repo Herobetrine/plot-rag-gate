@@ -1,0 +1,189 @@
+{
+  "schema_version": "plot-rag-remote-responses/v1",
+  "redacted": true,
+  "cases": [
+    {
+      "id": "embedding.ok.indexed",
+      "service": "embedding",
+      "expect": "ok",
+      "input_count": 2,
+      "response": {
+        "data": [
+          {
+            "index": 1,
+            "embedding": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "index": 0,
+            "embedding": [
+              1.0,
+              0.0
+            ]
+          }
+        ],
+        "model": "fixture-embedding-v1",
+        "usage": {
+          "prompt_tokens": 8,
+          "total_tokens": 8
+        }
+      }
+    },
+    {
+      "id": "embedding.error.invalid-component",
+      "service": "embedding",
+      "expect": "error",
+      "input_count": 1,
+      "error_code": "embedding contains a non-numeric component",
+      "response": {
+        "data": [
+          {
+            "index": 0,
+            "embedding": [
+              1.0,
+              "invalid"
+            ]
+          }
+        ],
+        "model": "fixture-embedding-v1"
+      }
+    },
+    {
+      "id": "rerank.ok.indexed",
+      "service": "rerank",
+      "expect": "ok",
+      "document_count": 3,
+      "response": {
+        "results": [
+          {
+            "index": 2,
+            "relevance_score": 0.91
+          },
+          {
+            "index": 0,
+            "relevance_score": 0.73
+          }
+        ],
+        "model": "fixture-rerank-v1"
+      }
+    },
+    {
+      "id": "rerank.error.duplicate-index",
+      "service": "rerank",
+      "expect": "error",
+      "document_count": 2,
+      "error_code": "non-finite or duplicated",
+      "response": {
+        "results": [
+          {
+            "index": 0,
+            "relevance_score": 0.9
+          },
+          {
+            "index": 0,
+            "relevance_score": 0.8
+          }
+        ],
+        "model": "fixture-rerank-v1"
+      }
+    },
+    {
+      "id": "chat-json.ok.delta-v4",
+      "service": "chat_json",
+      "expect": "ok",
+      "response": {
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"schema_version\":\"plot-rag-delta/v4\",\"deltas\":[]}"
+            }
+          }
+        ],
+        "model": "fixture-chat-v1"
+      }
+    },
+    {
+      "id": "chat-json.error.invalid-content",
+      "service": "chat_json",
+      "expect": "error",
+      "error_code": "content is not valid JSON",
+      "response": {
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{"
+            }
+          }
+        ],
+        "model": "fixture-chat-v1"
+      }
+    },
+    {
+      "id": "chat-tool.ok.delta-v4",
+      "service": "chat_tool",
+      "expect": "ok",
+      "tool_name": "submit_plot_rag_deltas",
+      "response": {
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "tool_calls",
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "fixture-call-1",
+                  "type": "function",
+                  "function": {
+                    "name": "submit_plot_rag_deltas",
+                    "arguments": "{\"schema_version\":\"plot-rag-delta/v4\",\"deltas\":[]}"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "model": "fixture-chat-v1"
+      }
+    },
+    {
+      "id": "chat-tool.error.wrong-name",
+      "service": "chat_tool",
+      "expect": "error",
+      "tool_name": "submit_plot_rag_deltas",
+      "error_code": "function name does not match",
+      "response": {
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "tool_calls",
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "fixture-call-2",
+                  "type": "function",
+                  "function": {
+                    "name": "different_function",
+                    "arguments": "{\"schema_version\":\"plot-rag-delta/v4\",\"deltas\":[]}"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "model": "fixture-chat-v1"
+      }
+    }
+  ]
+}

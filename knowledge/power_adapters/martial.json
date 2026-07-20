@@ -1,0 +1,20 @@
+{
+  "schema_version": "plot-rag-power-adapter/v1",
+  "adapter_id": "plot-rag-power.martial",
+  "version": "1.0.0",
+  "profile": "martial",
+  "display_name": "武道",
+  "aliases": ["武侠", "国术", "martial"],
+  "detection_terms": ["内力", "气血", "经脉", "招式", "武意", "炼体", "拳法", "刀法", "身法"],
+  "track_kinds": ["ordered_rank", "numeric_level", "open_ended"],
+  "native_terms": {
+    "progression_track": ["武道境界", "招式熟练", "武意"],
+    "ability": ["招式", "内功", "身法"],
+    "resource_pool": ["内力", "气血", "体力"],
+    "status_effect": ["伤势", "经脉损伤", "架势"],
+    "counter_rule": ["距离克制", "兵器克制", "武意压制"]
+  },
+  "required_dimensions": ["stance", "distance", "injury", "meridian", "weapon", "school_conflict"],
+  "question_prompts": ["招式受距离、架势和兵器怎样约束？", "伤势与经脉状态如何影响高负荷动作？", "内外功冲突与恢复如何记录？"],
+  "no_rank_generation": false
+}

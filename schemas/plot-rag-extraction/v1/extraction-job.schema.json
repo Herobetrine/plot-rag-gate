@@ -1,0 +1,257 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-extraction/v1/extraction-job.schema.json",
+  "title": "Durable Plot RAG Extraction Job v1",
+  "type": "object",
+  "required": [
+    "job_id",
+    "receipt_id",
+    "request_id",
+    "assistant_sha256",
+    "prompt_hash",
+    "retrieved_context_digest",
+    "prepared_canon_revision",
+    "active_projection_hash",
+    "intent_contract_hash",
+    "event_seed_manifest_hash",
+    "experience_contract_hashes",
+    "artifact_context",
+    "branch_id",
+    "sequence_no",
+    "extract_provider",
+    "extract_base_url",
+    "extract_model",
+    "extract_schema_hash",
+    "extract_prompt_template_hash",
+    "min_confidence",
+    "generation_params",
+    "job_status",
+    "attempt_count",
+    "remote_status",
+    "result_proposal_id",
+    "error",
+    "lease_owner",
+    "lease_expires_at",
+    "heartbeat_at",
+    "next_attempt_at",
+    "created_at",
+    "updated_at",
+    "started_at",
+    "completed_at",
+    "status",
+    "lease_epoch",
+    "extract_endpoint_hash",
+    "extract_model_hash",
+    "generation_params_hash",
+    "job_binding_hash",
+    "hash_binding"
+  ],
+  "properties": {
+    "job_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "receipt_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "request_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "assistant_sha256": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "prompt_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "retrieved_context_digest": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "prepared_canon_revision": {
+      "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+    },
+    "active_projection_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "intent_contract_hash": {
+      "$ref": "common.schema.json#/$defs/sha256OrEmpty"
+    },
+    "event_seed_manifest_hash": {
+      "$ref": "common.schema.json#/$defs/sha256OrEmpty"
+    },
+    "experience_contract_hashes": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/sha256"
+      }
+    },
+    "artifact_context": {
+      "type": "object"
+    },
+    "branch_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "sequence_no": {
+      "$ref": "common.schema.json#/$defs/nullableNonNegativeInteger"
+    },
+    "extract_provider": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "extract_base_url": {
+      "type": "string",
+      "minLength": 1,
+      "format": "uri"
+    },
+    "extract_model": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "extract_schema_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "extract_prompt_template_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "min_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "generation_params": {
+      "type": "object"
+    },
+    "job_status": {
+      "enum": [
+        "queued",
+        "running",
+        "succeeded",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "attempt_count": {
+      "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+    },
+    "remote_status": {
+      "type": "string"
+    },
+    "result_proposal_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "error": {
+      "type": "string"
+    },
+    "lease_owner": {
+      "type": "string"
+    },
+    "lease_expires_at": {
+      "$ref": "common.schema.json#/$defs/nullableTimestamp"
+    },
+    "heartbeat_at": {
+      "$ref": "common.schema.json#/$defs/nullableTimestamp"
+    },
+    "next_attempt_at": {
+      "$ref": "common.schema.json#/$defs/nullableTimestamp"
+    },
+    "created_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "updated_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "started_at": {
+      "$ref": "common.schema.json#/$defs/nullableTimestamp"
+    },
+    "completed_at": {
+      "$ref": "common.schema.json#/$defs/nullableTimestamp"
+    },
+    "status": {
+      "enum": [
+        "queued",
+        "running",
+        "succeeded",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "lease_epoch": {
+      "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+    },
+    "extract_endpoint_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "extract_model_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "generation_params_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "job_binding_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "hash_binding": {
+      "type": "object",
+      "required": [
+        "assistant_sha256",
+        "prompt_hash",
+        "retrieved_context_digest",
+        "active_projection_hash",
+        "intent_contract_hash",
+        "event_seed_manifest_hash",
+        "extract_schema_hash",
+        "extract_prompt_template_hash",
+        "extract_endpoint_hash",
+        "extract_model_hash",
+        "generation_params_hash",
+        "job_binding_hash"
+      ],
+      "properties": {
+        "assistant_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "prompt_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "retrieved_context_digest": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "active_projection_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "intent_contract_hash": {
+          "$ref": "common.schema.json#/$defs/sha256OrEmpty"
+        },
+        "event_seed_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/sha256OrEmpty"
+        },
+        "extract_schema_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "extract_prompt_template_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "extract_endpoint_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "extract_model_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "generation_params_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "job_binding_hash": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "reused": {
+      "type": "boolean"
+    },
+    "enqueue_ms": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false
+}

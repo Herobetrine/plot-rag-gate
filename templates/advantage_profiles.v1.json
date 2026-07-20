@@ -1,0 +1,406 @@
+{
+  "schema_version": "plot-rag-advantage-profile-registry/v1",
+  "registry_version": "1.0.0",
+  "profiles": [
+    {
+      "profile": "appraisal_copy",
+      "display_name": "鉴定、解析与复制",
+      "aliases": ["鉴定", "解析", "复制", "夺取技能", "appraisal", "copy"],
+      "upper_classes": ["ability_endowment", "knowledge_guidance"],
+      "anchor_types": ["item_instance", "knowledge_set", "virtual_system"],
+      "detection_terms": ["鉴定", "解析", "复制槽", "夺取", "扫描", "看破", "兼容率"],
+      "module_kinds": ["appraisal", "observation", "copy", "compatibility", "degradation"],
+      "runtime_dimensions": ["copy_slots", "copy_uses", "compatibility", "pollution", "exposure"],
+      "ledger_entry_kinds": ["copy_acquire", "copy_replace", "copy_consume", "copy_degrade"],
+      "knowledge_requirements": ["information_source", "confidence", "observer", "revealed_fields"],
+      "contract_kinds": ["target_qualification", "copy_limit", "knowledge_boundary"],
+      "narrative_contract": {
+        "reading_promise": "把未知机制转化为可验证的选择，而不是无条件全知。",
+        "reward_loop": ["发现目标", "有限鉴定", "承担兼容代价", "获得可用片段"],
+        "risk_loop": ["误读", "槽位不足", "目标反制", "污染或能力降级"],
+        "reveal_ladder": ["表象", "可用字段", "隐藏限制", "机制来源"]
+      },
+      "compatibility": {
+        "item_projection": true,
+        "power_bridge": true,
+        "branch_isolation": false,
+        "story_time_required": false
+      }
+    },
+    {
+      "profile": "bloodline_constitution",
+      "display_name": "血脉、体质与天赋",
+      "aliases": ["血脉", "体质", "天赋", "灵根", "bloodline", "constitution"],
+      "upper_classes": ["ability_endowment"],
+      "anchor_types": ["actor", "body_or_vessel", "power_source"],
+      "detection_terms": ["觉醒", "返祖", "进化", "血脉浓度", "特殊体质", "天赋被动"],
+      "module_kinds": ["passive_trait", "awakening", "evolution", "compatibility", "suppression"],
+      "runtime_dimensions": ["awakening_stage", "purity", "compatibility", "pollution", "suppression"],
+      "ledger_entry_kinds": ["inherit", "awaken", "evolve", "purify", "contaminate"],
+      "knowledge_requirements": ["lineage_source", "objective_traits", "actor_belief", "public_claim"],
+      "contract_kinds": ["inheritance_rule", "awakening_condition", "power_boundary"],
+      "narrative_contract": {
+        "reading_promise": "让先天优势通过觉醒、选择与代价逐层兑现。",
+        "reward_loop": ["发现征兆", "满足觉醒条件", "获得新被动", "改变身份关系"],
+        "risk_loop": ["失控", "污染", "血脉追索", "兼容冲突"],
+        "reveal_ladder": ["异常征兆", "血脉身份", "真实边界", "来源债务"]
+      },
+      "compatibility": {
+        "item_projection": false,
+        "power_bridge": true,
+        "branch_isolation": false,
+        "story_time_required": false
+      }
+    },
+    {
+      "profile": "companion_mentor",
+      "display_name": "器灵、导师与智能伙伴",
+      "aliases": ["器灵", "老爷爷", "导师", "智能伙伴", "mentor", "companion"],
+      "upper_classes": ["knowledge_guidance", "resource_device"],
+      "anchor_types": ["actor", "item_instance", "contract"],
+      "detection_terms": ["残魂导师", "器灵苏醒", "指导", "建议", "代行", "隐藏目标"],
+      "module_kinds": ["advice", "memory", "delegated_action", "relationship", "permission"],
+      "runtime_dimensions": ["awake_state", "trust", "agency", "memory_access", "exposure"],
+      "ledger_entry_kinds": ["advice_given", "favor", "debt", "permission_change", "delegated_cost"],
+      "knowledge_requirements": ["speaker", "claim_type", "confidence", "truth_status", "hidden_goal"],
+      "contract_kinds": ["agency", "trust", "permission", "debt", "breach"],
+      "narrative_contract": {
+        "reading_promise": "提供有立场的知识与陪伴，而不是作者替主角作答。",
+        "reward_loop": ["建立信任", "获得建议", "验证信息", "解锁记忆或权限"],
+        "risk_loop": ["误导", "自主行动", "隐瞒", "契约冲突"],
+        "reveal_ladder": ["可见人格", "局部记忆", "真实目标", "历史责任"]
+      },
+      "compatibility": {
+        "item_projection": true,
+        "power_bridge": false,
+        "branch_isolation": false,
+        "story_time_required": false
+      }
+    },
+    {
+      "profile": "contract_summon",
+      "display_name": "契约、召唤与随从",
+      "aliases": ["契约兽", "召唤", "分身", "随从", "summon", "contract"],
+      "upper_classes": ["ability_endowment", "resource_device"],
+      "anchor_types": ["contract", "actor", "virtual_system"],
+      "detection_terms": ["契约条款", "召唤位", "共享状态", "忠诚", "违约", "自治"],
+      "module_kinds": ["contract_bind", "summon", "dismiss", "shared_state", "replacement"],
+      "runtime_dimensions": ["active_summons", "distance", "loyalty", "shared_cost", "contract_status"],
+      "ledger_entry_kinds": ["bind", "summon_cost", "shared_damage", "dismiss", "breach"],
+      "knowledge_requirements": ["party_knowledge", "contract_visibility", "hidden_clause", "loyalty_belief"],
+      "contract_kinds": ["service", "autonomy", "distance", "death", "breach"],
+      "narrative_contract": {
+        "reading_promise": "让额外行动者带来配合、关系与不可完全控制的风险。",
+        "reward_loop": ["缔约", "磨合", "协同作战", "关系升级"],
+        "risk_loop": ["违约", "距离中断", "死亡代价", "自主选择"],
+        "reveal_ladder": ["表面条款", "能力分工", "隐藏条款", "真实忠诚"]
+      },
+      "compatibility": {
+        "item_projection": false,
+        "power_bridge": true,
+        "branch_isolation": false,
+        "story_time_required": false
+      }
+    },
+    {
+      "profile": "foreknowledge",
+      "display_name": "预知、重生记忆与攻略",
+      "aliases": ["重生", "预知", "攻略", "先知梦", "future knowledge", "foreknowledge"],
+      "upper_classes": ["knowledge_guidance"],
+      "anchor_types": ["knowledge_set", "temporal_rule", "actor"],
+      "detection_terms": ["前世记忆", "未来片段", "预知梦", "攻略", "分歧点", "记忆衰减"],
+      "module_kinds": ["memory_fragment", "prediction", "divergence", "confidence_decay", "revalidation"],
+      "runtime_dimensions": ["divergence_index", "confidence", "validated_fragments", "stale_fragments", "exposure"],
+      "ledger_entry_kinds": ["fragment_gain", "prediction_use", "divergence", "invalidate", "revalidate"],
+      "knowledge_requirements": ["source_time", "confidence", "branch_id", "divergence_point"],
+      "contract_kinds": ["memory_scope", "decay_rule", "branch_boundary"],
+      "narrative_contract": {
+        "reading_promise": "用不再完全可靠的未来知识制造领先与反差。",
+        "reward_loop": ["回忆线索", "提前布局", "验证命中", "扩大主动权"],
+        "risk_loop": ["历史分歧", "记忆错误", "对手变化", "提前暴露"],
+        "reveal_ladder": ["已知事件", "分歧征兆", "信息失效", "时间来源"]
+      },
+      "compatibility": {
+        "item_projection": false,
+        "power_bridge": false,
+        "branch_isolation": true,
+        "story_time_required": true
+      }
+    },
+    {
+      "profile": "growth_relic",
+      "display_name": "成长遗物与成长武器",
+      "aliases": ["成长武器", "神戒", "可升级法宝", "growth relic", "evolving artifact"],
+      "upper_classes": ["resource_device", "ability_endowment"],
+      "anchor_types": ["item_instance", "power_source"],
+      "detection_terms": ["升级法宝", "槽位", "套装", "觉醒", "吞材料", "成长武器"],
+      "module_kinds": ["stage", "unlock", "slot", "set_bonus", "awakening"],
+      "runtime_dimensions": ["stage", "capacity", "unlocked_modules", "durability", "pollution"],
+      "ledger_entry_kinds": ["material_input", "upgrade", "unlock", "repair", "downgrade"],
+      "knowledge_requirements": ["known_stage", "hidden_unlock", "material_rule", "failure_outcome"],
+      "contract_kinds": ["ownership", "upgrade_cost", "capacity", "set_membership"],
+      "narrative_contract": {
+        "reading_promise": "让同一遗物随剧情持续成长并保留旧能力的因果痕迹。",
+        "reward_loop": ["获得材料", "完成升级", "解锁槽位", "重组战斗方案"],
+        "risk_loop": ["材料稀缺", "升级失败", "损坏", "越阶反噬"],
+        "reveal_ladder": ["基础功能", "成长路径", "套装关系", "最终形态"]
+      },
+      "compatibility": {
+        "item_projection": true,
+        "power_bridge": true,
+        "branch_isolation": false,
+        "story_time_required": false
+      }
+    },
+    {
+      "profile": "inheritance",
+      "display_name": "传承、遗产与夺舍残留",
+      "aliases": ["传承", "遗产", "道统", "夺舍残留", "inheritance", "legacy"],
+      "upper_classes": ["resource_device", "knowledge_guidance", "ability_endowment"],
+      "anchor_types": ["body_or_vessel", "item_instance", "knowledge_set", "contract"],
+      "detection_terms": ["认主", "继承", "传承仪式", "原主残留", "道统", "道路偏移"],
+      "module_kinds": ["recognition", "inherit_stage", "memory_release", "debt", "residual_will"],
+      "runtime_dimensions": ["inheritance_stage", "recognized_owner", "residual_influence", "debt", "exposure"],
+      "ledger_entry_kinds": ["recognize_owner", "inherit", "unlock", "debt_accrual", "residual_cost"],
+      "knowledge_requirements": ["original_owner", "inheritance_scope", "hidden_history", "residual_intent"],
+      "contract_kinds": ["qualification", "inheritance_scope", "obligation", "residual_will"],
+      "narrative_contract": {
+        "reading_promise": "让遗产同时带来捷径、历史谜团和前人债务。",
+        "reward_loop": ["获得资格", "完成仪式", "继承一层", "理解前人道路"],
+        "risk_loop": ["原主残留", "道路偏移", "债务追索", "身份暴露"],
+        "reveal_ladder": ["表层遗产", "继承条件", "前人历史", "定向安排"]
+      },
+      "compatibility": {
+        "item_projection": true,
+        "power_bridge": true,
+        "branch_isolation": false,
+        "story_time_required": false
+      }
+    },
+    {
+      "profile": "pocket_domain",
+      "display_name": "随身空间、洞府与秘境",
+      "aliases": ["随身空间", "洞府", "内景", "秘境", "pocket domain", "space"],
+      "upper_classes": ["resource_device"],
+      "anchor_types": ["item_instance", "location", "virtual_system"],
+      "detection_terms": ["空间入口", "时间倍率", "种植", "容量", "随身洞府", "秘境出入"],
+      "module_kinds": ["entry", "exit", "containment", "time_ratio", "environment", "production"],
+      "runtime_dimensions": ["capacity", "occupancy", "time_ratio", "access_list", "integrity"],
+      "ledger_entry_kinds": ["enter", "exit", "store", "retrieve", "produce", "destroy"],
+      "knowledge_requirements": ["entry_location", "exit_rule", "time_rule", "access_rule"],
+      "contract_kinds": ["access", "capacity", "time", "destruction"],
+      "narrative_contract": {
+        "reading_promise": "提供可经营的第二空间，同时保持位置、时间与资源守恒。",
+        "reward_loop": ["发现入口", "扩充空间", "生产资源", "建立据点"],
+        "risk_loop": ["入口暴露", "容量溢出", "时间错位", "空间破坏"],
+        "reveal_ladder": ["基础容器", "环境规则", "时间规则", "空间来源"]
+      },
+      "compatibility": {
+        "item_projection": true,
+        "power_bridge": false,
+        "branch_isolation": true,
+        "story_time_required": true
+      }
+    },
+    {
+      "profile": "resource_transformer",
+      "display_name": "炼制、吞噬与资源转化",
+      "aliases": ["炼器炉", "吞噬", "合成", "转化器", "transformer", "refinery"],
+      "upper_classes": ["resource_device"],
+      "anchor_types": ["item_instance", "power_source", "virtual_system"],
+      "detection_terms": ["炼制", "吞噬", "合成", "转化", "配方", "损耗", "失败产物", "熔炉", "能力提取", "演算点"],
+      "module_kinds": ["input", "recipe", "transform", "quality", "pollution", "failure_output"],
+      "runtime_dimensions": ["capacity", "active_recipe", "quality", "pollution", "cooldown"],
+      "ledger_entry_kinds": ["input", "output", "loss", "refund", "failure_output"],
+      "knowledge_requirements": ["recipe_source", "compatibility", "quality_rule", "failure_rule"],
+      "contract_kinds": ["input_conservation", "output_ownership", "pollution", "causal_window"],
+      "narrative_contract": {
+        "reading_promise": "把稀缺输入转成有选择成本的独特成长资源。",
+        "reward_loop": ["识别材料", "满足配方", "完成转化", "获得新组合"],
+        "risk_loop": ["输入损耗", "失败产物", "污染", "来源追踪"],
+        "reveal_ladder": ["基础配方", "质量规则", "隐藏损耗", "转化本质"]
+      },
+      "compatibility": {
+        "item_projection": true,
+        "power_bridge": true,
+        "branch_isolation": false,
+        "story_time_required": false
+      }
+    },
+    {
+      "profile": "reward_market",
+      "display_name": "兑换商城、抽奖与盲盒",
+      "aliases": ["商城", "兑换", "抽奖", "盲盒", "market", "gacha"],
+      "upper_classes": ["resource_device"],
+      "anchor_types": ["virtual_system"],
+      "detection_terms": ["兑换货币", "商品库存", "价格刷新", "奖池", "概率", "保底"],
+      "module_kinds": ["currency", "catalog", "exchange", "lottery", "pity", "refresh"],
+      "runtime_dimensions": ["currency_balance", "catalog_version", "stock", "pity_count", "exposure"],
+      "ledger_entry_kinds": ["earn", "spend", "exchange", "draw", "refund", "price_change"],
+      "knowledge_requirements": ["visible_price", "hidden_probability", "catalog_source", "stock_visibility"],
+      "contract_kinds": ["currency_source", "probability", "inventory", "price"],
+      "narrative_contract": {
+        "reading_promise": "用可核算资源换取带机会成本的奖励选择。",
+        "reward_loop": ["获得货币", "比较商品", "承担机会成本", "兑换或抽取"],
+        "risk_loop": ["货币短缺", "库存变化", "概率落空", "价格波动"],
+        "reveal_ladder": ["可见商品", "稀有库存", "真实概率", "市场来源"]
+      },
+      "compatibility": {
+        "item_projection": true,
+        "power_bridge": true,
+        "branch_isolation": false,
+        "story_time_required": true
+      }
+    },
+    {
+      "profile": "sign_in_lottery",
+      "display_name": "签到、随机抽取与周期礼包",
+      "aliases": ["签到", "每日抽奖", "首充礼包", "sign-in", "lottery"],
+      "upper_classes": ["resource_device"],
+      "anchor_types": ["virtual_system"],
+      "detection_terms": ["每日签到", "连续签到", "奖池版本", "保底", "重复奖励", "周期刷新"],
+      "module_kinds": ["periodic_trigger", "qualification", "lottery", "pity", "claim"],
+      "runtime_dimensions": ["last_claim_time", "streak", "pity_count", "pool_version", "eligibility"],
+      "ledger_entry_kinds": ["sign_in", "draw", "claim", "duplicate_convert", "missed_cycle"],
+      "knowledge_requirements": ["visible_cycle", "pool_version", "probability_visibility", "eligibility"],
+      "contract_kinds": ["cycle", "eligibility", "probability", "duplicate"],
+      "narrative_contract": {
+        "reading_promise": "以故事时间驱动周期奖励，并让随机性保留可追踪规则。",
+        "reward_loop": ["时间到达", "满足资格", "领取或抽取", "更新连续记录"],
+        "risk_loop": ["错过周期", "重复奖励", "奖池变更", "资格失效"],
+        "reveal_ladder": ["周期规则", "奖励池", "保底机制", "触发来源"]
+      },
+      "compatibility": {
+        "item_projection": true,
+        "power_bridge": true,
+        "branch_isolation": false,
+        "story_time_required": true
+      }
+    },
+    {
+      "profile": "simulator_branch",
+      "display_name": "模拟器与假设分支",
+      "aliases": ["模拟器", "推演空间", "未来演算", "simulator", "branch"],
+      "upper_classes": ["knowledge_guidance", "resource_device"],
+      "anchor_types": ["virtual_system", "item_instance", "temporal_rule"],
+      "detection_terms": ["模拟人生", "假设分支", "演算结果", "模拟死亡", "信息回收", "分支编号"],
+      "module_kinds": ["branch_create", "simulate", "observe_result", "information_return", "branch_close"],
+      "runtime_dimensions": ["active_branches", "simulation_budget", "branch_depth", "leakage", "cooldown"],
+      "ledger_entry_kinds": ["simulation_cost", "branch_create", "result_return", "branch_close"],
+      "knowledge_requirements": ["branch_id", "hypothesis", "result_confidence", "canon_boundary"],
+      "contract_kinds": ["branch_isolation", "returnable_information", "simulation_cost"],
+      "narrative_contract": {
+        "reading_promise": "让试错产生信息收益，但不把模拟结果直接写成现实。",
+        "reward_loop": ["提出假设", "支付成本", "观察分支", "带回有限信息"],
+        "risk_loop": ["错误假设", "信息泄漏", "成本耗尽", "模拟与现实分歧"],
+        "reveal_ladder": ["局部结果", "关键变量", "分支偏差", "模拟器来源"]
+      },
+      "compatibility": {
+        "item_projection": false,
+        "power_bridge": false,
+        "branch_isolation": true,
+        "story_time_required": true
+      }
+    },
+    {
+      "profile": "social_currency",
+      "display_name": "声望、信仰与情绪货币",
+      "aliases": ["声望", "信仰", "情绪值", "功德", "香火", "social currency"],
+      "upper_classes": ["resource_device", "ability_endowment"],
+      "anchor_types": ["social_graph", "virtual_system", "actor"],
+      "detection_terms": ["声望值", "信仰之力", "情绪收集", "功德", "香火", "观测者集合"],
+      "module_kinds": ["collect", "aggregate", "convert", "allocate", "feedback"],
+      "runtime_dimensions": ["balance", "observer_set", "publicity", "conversion_rate", "backlash"],
+      "ledger_entry_kinds": ["collect", "convert", "spend", "decay", "backlash"],
+      "knowledge_requirements": ["observer_scope", "visibility", "conversion_rule", "public_claim"],
+      "contract_kinds": ["observer_set", "anti_farming", "publicity", "conversion"],
+      "narrative_contract": {
+        "reading_promise": "把社会反馈转成力量，同时让公众关系反向约束主角。",
+        "reward_loop": ["影响群体", "收集反馈", "转换资源", "扩大社会杠杆"],
+        "risk_loop": ["刷取失效", "舆论反转", "公开暴露", "情绪反噬"],
+        "reveal_ladder": ["可见反馈", "观测者范围", "转换规则", "社会代价"]
+      },
+      "compatibility": {
+        "item_projection": false,
+        "power_bridge": true,
+        "branch_isolation": false,
+        "story_time_required": true
+      }
+    },
+    {
+      "profile": "system_panel",
+      "display_name": "系统与属性面板",
+      "aliases": ["系统", "面板", "属性面板", "成就面板", "system", "panel"],
+      "upper_classes": ["resource_device", "knowledge_guidance"],
+      "anchor_types": ["virtual_system"],
+      "detection_terms": ["宿主", "属性", "任务栏", "奖励提示", "权限等级", "系统空间"],
+      "module_kinds": ["interface", "attribute_view", "permission", "notification", "command"],
+      "runtime_dimensions": ["enabled", "permission_level", "visible_fields", "exposure", "error_state"],
+      "ledger_entry_kinds": ["permission_change", "field_unlock", "notification", "system_cost"],
+      "knowledge_requirements": ["interface_claim", "objective_effect", "hidden_permission", "operator_source"],
+      "contract_kinds": ["host_binding", "permission", "disclosure", "system_agency"],
+      "narrative_contract": {
+        "reading_promise": "用清晰反馈组织成长，但不把界面文本等同于客观真相。",
+        "reward_loop": ["读取反馈", "形成目标", "执行选择", "解锁信息或权限"],
+        "risk_loop": ["权限不足", "错误提示", "系统暴露", "系统自主目标"],
+        "reveal_ladder": ["基础界面", "隐藏字段", "权限结构", "系统来源"]
+      },
+      "compatibility": {
+        "item_projection": false,
+        "power_bridge": true,
+        "branch_isolation": false,
+        "story_time_required": false
+      }
+    },
+    {
+      "profile": "task_reward",
+      "display_name": "任务、成就与奖励",
+      "aliases": ["任务", "成就", "签到任务", "奖励", "quest", "achievement"],
+      "upper_classes": ["resource_device"],
+      "anchor_types": ["virtual_system", "item_instance"],
+      "detection_terms": ["任务条件", "失败惩罚", "领取奖励", "重复任务", "完成度", "任务期限"],
+      "module_kinds": ["trigger", "qualification", "progress", "reward", "penalty", "claim"],
+      "runtime_dimensions": ["task_state", "progress", "deadline", "claim_state", "failure_count"],
+      "ledger_entry_kinds": ["task_open", "progress", "complete", "reward", "penalty", "claim"],
+      "knowledge_requirements": ["visible_condition", "hidden_condition", "reward_visibility", "failure_visibility"],
+      "contract_kinds": ["qualification", "deadline", "reward", "penalty", "repeatability"],
+      "narrative_contract": {
+        "reading_promise": "把行动目标与奖励闭环化，同时保留失败和选择成本。",
+        "reward_loop": ["触发目标", "满足条件", "完成验收", "领取奖励"],
+        "risk_loop": ["期限压力", "隐藏条件", "失败惩罚", "重复领取门禁"],
+        "reveal_ladder": ["公开目标", "进度条件", "隐藏代价", "任务发布者"]
+      },
+      "compatibility": {
+        "item_projection": true,
+        "power_bridge": true,
+        "branch_isolation": false,
+        "story_time_required": true
+      }
+    },
+    {
+      "profile": "time_causality",
+      "display_name": "时间回溯与因果改写",
+      "aliases": ["回溯", "存档", "时间暂停", "因果改写", "time loop", "rollback"],
+      "upper_classes": ["ability_endowment", "knowledge_guidance"],
+      "anchor_types": ["temporal_rule", "item_instance", "virtual_system"],
+      "detection_terms": ["检查点", "读档", "时间暂停", "回滚", "保留记忆", "因果债"],
+      "module_kinds": ["checkpoint", "branch", "rollback", "retention", "pause", "causal_rewrite"],
+      "runtime_dimensions": ["checkpoint_id", "branch_id", "uses", "retained_fields", "causal_debt"],
+      "ledger_entry_kinds": ["checkpoint_create", "rollback", "retain", "causal_debt", "branch_merge"],
+      "knowledge_requirements": ["source_timeline", "retained_memory", "branch_id", "rewrite_scope"],
+      "contract_kinds": ["rollback_scope", "retention", "causal_debt", "branch_merge"],
+      "narrative_contract": {
+        "reading_promise": "让重来改变选择而非抹平所有后果。",
+        "reward_loop": ["建立检查点", "遭遇失败", "支付代价回溯", "利用保留信息"],
+        "risk_loop": ["因果债", "保留项受限", "分支污染", "检查点失效"],
+        "reveal_ladder": ["回溯范围", "保留规则", "分支代价", "因果来源"]
+      },
+      "compatibility": {
+        "item_projection": false,
+        "power_bridge": true,
+        "branch_isolation": true,
+        "story_time_required": true
+      }
+    }
+  ]
+}

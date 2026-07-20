@@ -1,0 +1,694 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-item.v1.json",
+  "title": "Plot RAG Item Initialization Sidecar v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "work_id",
+    "source_initialization_schema_version",
+    "source_snapshot_hash",
+    "item_definitions",
+    "item_instances",
+    "item_stacks",
+    "item_functions",
+    "item_function_bindings",
+    "item_custody_bootstrap",
+    "item_runtime_bootstrap",
+    "item_function_runtime_bootstrap",
+    "item_observations",
+    "legacy_inventory",
+    "provenance",
+    "package_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "plot-rag-item/v1"
+    },
+    "work_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_initialization_schema_version": {
+      "enum": [
+        "plot-rag-init/v1",
+        "plot-rag-init/v2"
+      ]
+    },
+    "source_snapshot_hash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "item_definitions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/itemDefinition"
+      }
+    },
+    "item_instances": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/itemInstance"
+      }
+    },
+    "item_stacks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/itemStack"
+      }
+    },
+    "item_functions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/itemFunction"
+      }
+    },
+    "item_function_bindings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/itemFunctionBinding"
+      }
+    },
+    "item_custody_bootstrap": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/itemCustody"
+      }
+    },
+    "item_runtime_bootstrap": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/itemRuntime"
+      }
+    },
+    "item_function_runtime_bootstrap": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/itemFunctionRuntime"
+      }
+    },
+    "item_observations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/itemObservation"
+      }
+    },
+    "legacy_inventory": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/legacyInventory"
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "source_claim_ids",
+        "extractor",
+        "rules"
+      ],
+      "properties": {
+        "source_claim_ids": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "extractor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rules": {
+          "type": "object",
+          "required": [
+            "name_and_holder_remain_legacy_inventory",
+            "functions_require_explicit_source",
+            "single_effect_remains_observation",
+            "unknown_uniqueness_is_preserved",
+            "legacy_attributes_are_preserved"
+          ],
+          "properties": {
+            "name_and_holder_remain_legacy_inventory": {
+              "const": true
+            },
+            "functions_require_explicit_source": {
+              "const": true
+            },
+            "single_effect_remains_observation": {
+              "const": true
+            },
+            "unknown_uniqueness_is_preserved": {
+              "const": true
+            },
+            "legacy_attributes_are_preserved": {
+              "const": true
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "package_hash": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "claimBound": {
+      "type": "object",
+      "required": [
+        "source_claim_ids",
+        "origin"
+      ],
+      "properties": {
+        "source_claim_ids": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "origin": {
+          "enum": [
+            "user_input",
+            "source_extract"
+          ]
+        },
+        "knowledge_plane": {
+          "enum": [
+            "objective",
+            "actor_belief",
+            "public_narrative",
+            "reader_disclosed",
+            "author_plan"
+          ]
+        },
+        "legacy_attributes": {
+          "type": "object"
+        }
+      }
+    },
+    "itemDefinition": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/claimBound"
+        },
+        {
+          "type": "object",
+          "required": [
+            "item_definition_id",
+            "name",
+            "item_kind",
+            "stack_policy",
+            "uniqueness_policy",
+            "default_functions",
+            "attributes",
+            "legacy_attributes"
+          ],
+          "properties": {
+            "item_definition_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "item_entity_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "item_kind": {
+              "type": "string",
+              "minLength": 1
+            },
+            "stack_policy": {
+              "enum": [
+                "non_stackable",
+                "homogeneous",
+                "lot",
+                "unknown"
+              ]
+            },
+            "uniqueness_policy": {
+              "enum": [
+                "ordinary",
+                "unique_instance",
+                "unique_definition",
+                "unknown"
+              ]
+            },
+            "default_functions": {
+              "$ref": "#/$defs/stringArray"
+            },
+            "attributes": {
+              "type": "object"
+            },
+            "legacy_attributes": {
+              "type": "object"
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": true
+    },
+    "itemInstance": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/claimBound"
+        },
+        {
+          "type": "object",
+          "required": [
+            "item_instance_id",
+            "item_definition_id",
+            "instance_name",
+            "unique",
+            "legacy_attributes"
+          ],
+          "properties": {
+            "item_instance_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "item_definition_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "instance_name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "unique": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "const": "unknown"
+                }
+              ]
+            },
+            "legacy_attributes": {
+              "type": "object"
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": true
+    },
+    "itemStack": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/claimBound"
+        },
+        {
+          "type": "object",
+          "required": [
+            "stack_id",
+            "item_definition_id",
+            "batch_properties",
+            "legacy_attributes"
+          ],
+          "properties": {
+            "stack_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "item_definition_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "quantity": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "batch_properties": {
+              "type": "object"
+            },
+            "legacy_attributes": {
+              "type": "object"
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": true
+    },
+    "itemFunction": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/claimBound"
+        },
+        {
+          "type": "object",
+          "required": [
+            "function_id",
+            "item_definition_id",
+            "name",
+            "function_kind",
+            "activation_kind",
+            "effect_owner",
+            "inline_effects",
+            "granted_ability_ids"
+          ],
+          "properties": {
+            "function_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "item_definition_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "function_kind": {
+              "type": "string",
+              "minLength": 1
+            },
+            "activation_kind": {
+              "enum": [
+                "active",
+                "passive",
+                "toggle",
+                "reaction",
+                "triggered"
+              ]
+            },
+            "effect_owner": {
+              "enum": [
+                "inline",
+                "ability_bridge"
+              ]
+            },
+            "inline_effects": {
+              "type": "array"
+            },
+            "granted_ability_ids": {
+              "$ref": "#/$defs/stringArray"
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": true
+    },
+    "itemFunctionBinding": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/claimBound"
+        },
+        {
+          "type": "object",
+          "required": [
+            "binding_id",
+            "target_type",
+            "target_id",
+            "function_id"
+          ],
+          "properties": {
+            "binding_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "target_type": {
+              "enum": [
+                "item_definition",
+                "item_instance",
+                "item_stack"
+              ]
+            },
+            "target_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "function_id": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": true
+    },
+    "itemCustody": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/claimBound"
+        },
+        {
+          "type": "object",
+          "required": [
+            "custody_key",
+            "subject_type",
+            "subject_id",
+            "custody_status"
+          ],
+          "properties": {
+            "custody_key": {
+              "type": "string",
+              "minLength": 1
+            },
+            "subject_type": {
+              "enum": [
+                "item_instance",
+                "item_stack"
+              ]
+            },
+            "subject_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "custody_status": {
+              "enum": [
+                "possessed",
+                "stored",
+                "loaned",
+                "seized",
+                "lost",
+                "abandoned",
+                "in_transit",
+                "destroyed",
+                "unknown"
+              ]
+            },
+            "quantity": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": true
+    },
+    "itemRuntime": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/claimBound"
+        },
+        {
+          "type": "object",
+          "required": [
+            "item_instance_id"
+          ],
+          "properties": {
+            "item_instance_id": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": true
+    },
+    "itemFunctionRuntime": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/claimBound"
+        },
+        {
+          "type": "object",
+          "required": [
+            "function_runtime_key",
+            "function_id"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "item_instance_id"
+              ],
+              "not": {
+                "required": [
+                  "stack_id"
+                ]
+              }
+            },
+            {
+              "required": [
+                "stack_id"
+              ],
+              "not": {
+                "required": [
+                  "item_instance_id"
+                ]
+              }
+            }
+          ],
+          "properties": {
+            "function_runtime_key": {
+              "type": "string",
+              "minLength": 1
+            },
+            "subject_type": {
+              "enum": [
+                "item_instance",
+                "item_stack"
+              ]
+            },
+            "subject_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "item_instance_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "stack_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "function_id": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": true
+    },
+    "itemObservation": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/claimBound"
+        },
+        {
+          "type": "object",
+          "required": [
+            "observation_id",
+            "subject_type",
+            "subject_id",
+            "observation_action",
+            "knowledge_plane",
+            "observation"
+          ],
+          "properties": {
+            "observation_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "subject_type": {
+              "enum": [
+                "item_definition",
+                "item_instance",
+                "item_stack"
+              ]
+            },
+            "subject_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "observation_action": {
+              "enum": [
+                "observe",
+                "reveal",
+                "claim",
+                "misidentify",
+                "correct"
+              ]
+            },
+            "knowledge_plane": {
+              "enum": [
+                "objective",
+                "actor_belief",
+                "public_narrative",
+                "reader_disclosed",
+                "author_plan"
+              ]
+            },
+            "observation": {
+              "type": "object",
+              "minProperties": 1
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": true
+    },
+    "legacyInventory": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/claimBound"
+        },
+        {
+          "type": "object",
+          "required": [
+            "legacy_inventory_id",
+            "holder_entity_id",
+            "holder_name",
+            "item_name",
+            "unique",
+            "legacy_attributes",
+            "modeling_status"
+          ],
+          "properties": {
+            "legacy_inventory_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "holder_entity_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "holder_name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "item_name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "unique": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "const": "unknown"
+                }
+              ]
+            },
+            "legacy_attributes": {
+              "type": "object"
+            },
+            "modeling_status": {
+              "const": "legacy_inventory_only"
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": true
+    }
+  }
+}

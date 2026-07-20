@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-extraction/v1/barrier-status.schema.json",
+  "title": "Plot RAG Extraction Barrier Status v1",
+  "type": "object",
+  "required": [
+    "code",
+    "blocking",
+    "branch_id",
+    "sequence_no",
+    "include_prior",
+    "job",
+    "proposal",
+    "job_count"
+  ],
+  "properties": {
+    "code": {
+      "enum": [
+        "clear",
+        "queued",
+        "running",
+        "failed",
+        "pending_review",
+        "accepted",
+        "rejected",
+        "retracted",
+        "cancelled"
+      ]
+    },
+    "blocking": {
+      "type": "boolean"
+    },
+    "branch_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "sequence_no": {
+      "$ref": "common.schema.json#/$defs/nullableNonNegativeInteger"
+    },
+    "include_prior": {
+      "type": "boolean"
+    },
+    "job": {
+      "oneOf": [
+        {
+          "$ref": "extraction-job.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "proposal": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "proposal_id",
+            "canon_status",
+            "missing"
+          ],
+          "properties": {
+            "proposal_id": {
+              "$ref": "common.schema.json#/$defs/identifier"
+            },
+            "canon_status": {
+              "enum": [
+                "missing",
+                "proposed",
+                "accepted",
+                "rejected",
+                "retracted"
+              ]
+            },
+            "validation_status": {
+              "type": "string"
+            },
+            "status_reason": {
+              "type": "string"
+            },
+            "accepted_commit_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "prepared_canon_revision": {
+              "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+            },
+            "missing": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "job_count": {
+      "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+    }
+  },
+  "additionalProperties": false
+}

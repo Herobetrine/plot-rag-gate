@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-item/v1.schema.json",
+  "title": "Plot RAG Item Initialization Sidecar v1 Canonical Entry Point",
+  "$ref": "../plot-rag-item.v1.json"
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/conversion-rule.schema.json",
+  "title": "ConversionRule",
+  "type": "object",
+  "required": ["conversion_rule_id", "source_system_id", "target_system_id", "source_resource_id", "target_resource_id", "ratio", "fixed_cost", "loss_ratio", "rounding", "reversible", "conditions", "conflict_policy"],
+  "properties": {
+    "conversion_rule_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "source_system_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "target_system_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "source_resource_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "target_resource_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "ratio": {"type": "number", "exclusiveMinimum": 0},
+    "fixed_cost": {"type": "number", "minimum": 0},
+    "loss_ratio": {"type": "number", "minimum": 0, "exclusiveMaximum": 1},
+    "capacity": {},
+    "rounding": {"type": "string", "minLength": 1},
+    "reversible": {"type": "boolean"},
+    "conditions": {"type": "array"},
+    "conflict_policy": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}

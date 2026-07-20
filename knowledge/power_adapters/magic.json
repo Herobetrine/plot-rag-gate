@@ -1,0 +1,21 @@
+{
+  "schema_version": "plot-rag-power-adapter/v1",
+  "adapter_id": "plot-rag-power.magic",
+  "version": "1.0.0",
+  "profile": "magic",
+  "display_name": "魔法",
+  "aliases": ["奇幻魔法", "spellcasting", "magic"],
+  "detection_terms": ["法术", "魔力", "法术位", "环阶", "学派", "施法", "咒语", "魔杖", "仪式", "专注"],
+  "track_kinds": ["ordered_rank", "branch_tree", "dag", "open_ended"],
+  "native_terms": {
+    "progression_track": ["法术环阶", "施法者等级", "学派专精"],
+    "rank_node": ["环", "阶"],
+    "ability": ["法术", "仪式", "戏法"],
+    "resource_pool": ["法力", "法术位", "专注"],
+    "qualification": ["准备位", "学派资格"],
+    "counter_rule": ["反制", "抗性", "免疫", "穿透"]
+  },
+  "required_dimensions": ["learned", "prepared", "resource_cycle", "components", "cast_time", "interrupt", "counter"],
+  "question_prompts": ["学会、准备和实际施放分别需要什么？", "材料、手势、语言或专注如何中断？", "抗性、免疫和反制窗口如何成立？"],
+  "no_rank_generation": false
+}

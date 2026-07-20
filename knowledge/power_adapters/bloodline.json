@@ -1,0 +1,20 @@
+{
+  "schema_version": "plot-rag-power-adapter/v1",
+  "adapter_id": "plot-rag-power.bloodline",
+  "version": "1.0.0",
+  "profile": "bloodline",
+  "display_name": "血脉",
+  "aliases": ["血统", "返祖", "bloodline"],
+  "detection_terms": ["血脉", "纯度", "返祖", "遗传", "排异", "突变", "族群", "祭血"],
+  "track_kinds": ["state_machine", "ordered_rank", "branch_tree"],
+  "native_terms": {
+    "progression_track": ["血脉纯度", "觉醒阶段", "返祖分支"],
+    "binding": ["血脉", "遗传来源"],
+    "resource_pool": ["血脉因子", "祭品"],
+    "status_effect": ["排异", "污染", "突变"],
+    "qualification": ["族群资格", "继承资格"]
+  },
+  "required_dimensions": ["inheritance", "purity", "awakening", "compatibility", "rejection", "descendant_consequence"],
+  "question_prompts": ["血脉如何遗传、唤醒与返祖？", "兼容、排异和污染会留下什么？", "力量如何改变族群身份与后代？"],
+  "no_rank_generation": false
+}

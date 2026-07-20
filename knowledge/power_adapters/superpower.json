@@ -1,0 +1,20 @@
+{
+  "schema_version": "plot-rag-power-adapter/v1",
+  "adapter_id": "plot-rag-power.superpower",
+  "version": "1.0.0",
+  "profile": "superpower",
+  "display_name": "异能",
+  "aliases": ["超能力", "觉醒者", "superpower"],
+  "detection_terms": ["异能", "觉醒", "精神力", "过载", "失控", "污染", "抑制器", "能力者"],
+  "track_kinds": ["state_machine", "ordered_rank", "numeric_level"],
+  "native_terms": {
+    "progression_track": ["觉醒阶段", "控制度", "输出等级"],
+    "ability": ["异能", "觉醒能力"],
+    "resource_pool": ["精神力", "体力", "负荷"],
+    "status_effect": ["过载", "污染", "失控"],
+    "counter_rule": ["能力冲突", "抑制", "兼容性"]
+  },
+  "required_dimensions": ["awakening", "load", "control", "loss_of_control", "compatibility", "exposure"],
+  "question_prompts": ["觉醒如何发生并留下何种后果？", "输出、控制和负荷是否为不同成长轴？", "失控、暴露和抑制装置怎样限制使用？"],
+  "no_rank_generation": false
+}

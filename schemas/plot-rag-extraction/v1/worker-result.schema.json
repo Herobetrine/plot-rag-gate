@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-extraction/v1/worker-result.schema.json",
+  "title": "Plot RAG Extraction Worker Result v1",
+  "type": "object",
+  "required": [
+    "status",
+    "job",
+    "proposal_id",
+    "error",
+    "processing_ms"
+  ],
+  "properties": {
+    "status": {
+      "enum": [
+        "idle",
+        "succeeded",
+        "failed",
+        "lease_lost"
+      ]
+    },
+    "job": {
+      "oneOf": [
+        {
+          "$ref": "extraction-job.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "proposal_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "error": {
+      "type": "string"
+    },
+    "processing_ms": {
+      "type": "number",
+      "minimum": 0
+    },
+    "recovered_job_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/identifier"
+      }
+    }
+  },
+  "additionalProperties": false
+}

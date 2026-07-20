@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-delta/v4/common.schema.json",
+  "title": "Plot RAG Delta v4 Common Types",
+  "$defs": {
+    "mention": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "evidence": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1200
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "knowledgePlane": {
+      "enum": [
+        "objective",
+        "actor_belief",
+        "public_narrative",
+        "reader_disclosed",
+        "author_plan"
+      ]
+    },
+    "storyCoordinate": {
+      "type": "object",
+      "required": [
+        "calendar_id",
+        "ordinal"
+      ],
+      "properties": {
+        "calendar_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "ordinal": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "precision": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        }
+      },
+      "additionalProperties": false
+    },
+    "effectiveAt": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "reference": {
+      "type": "object",
+      "required": [
+        "kind",
+        "mention"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mention": {
+          "$ref": "#/$defs/mention"
+        }
+      },
+      "additionalProperties": false
+    },
+    "roleReference": {
+      "type": "object",
+      "required": [
+        "role",
+        "mention"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mention": {
+          "$ref": "#/$defs/mention"
+        }
+      },
+      "additionalProperties": false
+    },
+    "positiveNumber": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "nonNegativeNumber": {
+      "type": "number",
+      "minimum": 0
+    },
+    "positiveDelta": {
+      "type": "object",
+      "properties": {
+        "quantity": {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        "charges": {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        "durability": {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        "energy": {
+          "$ref": "#/$defs/positiveNumber"
+        },
+        "cooldown": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "remoteJson": {
+      "oneOf": [
+        {
+          "type": "object",
+          "propertyNames": {
+            "not": {
+              "pattern": "^(?:id|.*_id|.*_ids|before|after|before_state|after_state|resulting_state|computed_state|derived_counters|remaining_quantity|remaining_charges|remaining_durability|remaining_energy|cooldown_until|current_quantity|current_charges|current_durability|current_energy|before_.*|after_.*|current_.*|remaining_.*|resulting_.*|computed_.*|derived_.*|new_.*|updated_.*|.*_before|.*_after|.*_remaining|.*_result|.*_total)$"
+            }
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/remoteJson"
+          }
+        },
+        {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "#/$defs/remoteJson"
+          }
+        },
+        {
+          "type": [
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
+        }
+      ]
+    }
+  }
+}

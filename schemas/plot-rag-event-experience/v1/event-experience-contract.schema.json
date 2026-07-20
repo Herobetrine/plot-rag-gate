@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-event-experience/v1/event-experience-contract.schema.json",
+  "title": "Plot RAG EventExperienceContract v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "contract_revision",
+    "event_seed_id",
+    "event_seed_revision",
+    "parent_chain_id",
+    "narrative_event_id",
+    "artifact_id",
+    "artifact_revision",
+    "branch_id",
+    "chapter_no",
+    "scene_index",
+    "source_intent_contract_id",
+    "source_intent_contract_revision",
+    "source_intent_contract_hash",
+    "supersedes_contract_id",
+    "dramatic_function",
+    "event_boundary",
+    "entry_reader_state",
+    "target_reader_state",
+    "primary_emotion",
+    "ordered_secondary_emotions",
+    "emotional_turn",
+    "intensity",
+    "emotion_curve",
+    "mechanisms",
+    "reader_knowledge_position",
+    "viewpoint_character_state",
+    "payoff_or_reveal",
+    "aftertaste",
+    "anti_experiences",
+    "success_signals",
+    "open_loop_links",
+    "derivation",
+    "field_provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "plot-rag-event-experience/v1"
+    },
+    "contract_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "contract_revision": {
+      "$ref": "common.schema.json#/$defs/positiveInteger"
+    },
+    "event_seed_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "event_seed_revision": {
+      "$ref": "common.schema.json#/$defs/positiveInteger"
+    },
+    "parent_chain_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "narrative_event_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "artifact_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "artifact_revision": {
+      "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+    },
+    "branch_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "chapter_no": {
+      "$ref": "common.schema.json#/$defs/nullableNonNegativeInteger"
+    },
+    "scene_index": {
+      "$ref": "common.schema.json#/$defs/nullableNonNegativeInteger"
+    },
+    "source_intent_contract_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "source_intent_contract_revision": {
+      "$ref": "common.schema.json#/$defs/positiveInteger"
+    },
+    "source_intent_contract_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "supersedes_contract_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "dramatic_function": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "event_boundary": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "entry_reader_state": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "target_reader_state": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "primary_emotion": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "ordered_secondary_emotions": {
+      "$ref": "common.schema.json#/$defs/textArray"
+    },
+    "emotional_turn": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "intensity": {
+      "$ref": "common.schema.json#/$defs/intensity"
+    },
+    "emotion_curve": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/textArray"
+        },
+        {
+          "minItems": 1
+        }
+      ]
+    },
+    "mechanisms": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/textArray"
+        },
+        {
+          "minItems": 1
+        }
+      ]
+    },
+    "reader_knowledge_position": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "viewpoint_character_state": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "payoff_or_reveal": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "aftertaste": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "anti_experiences": {
+      "$ref": "common.schema.json#/$defs/textArray"
+    },
+    "success_signals": {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/textArray"
+        },
+        {
+          "minItems": 1
+        }
+      ]
+    },
+    "open_loop_links": {
+      "$ref": "common.schema.json#/$defs/textArray"
+    },
+    "derivation": {
+      "type": "object",
+      "required": [
+        "source",
+        "confidence",
+        "user_confirmed",
+        "delegated_choice"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "common.schema.json#/$defs/text"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "user_confirmed": {
+          "type": "boolean"
+        },
+        "delegated_choice": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "field_provenance": {
+      "type": "object"
+    },
+    "contract_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "locked",
+        "retired"
+      ]
+    },
+    "locked_at": {
+      "$ref": "common.schema.json#/$defs/nullableTimestamp"
+    },
+    "retired_at": {
+      "$ref": "common.schema.json#/$defs/nullableTimestamp"
+    },
+    "retired_reason": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 4096
+    },
+    "created_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "updated_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    }
+  },
+  "additionalProperties": false
+}

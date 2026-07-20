@@ -1,0 +1,20 @@
+{
+  "schema_version": "plot-rag-power-adapter/v1",
+  "adapter_id": "plot-rag-power.system_assist",
+  "version": "1.0.0",
+  "profile": "system_assist",
+  "display_name": "系统流",
+  "aliases": ["系统", "面板流", "金手指系统", "system assist"],
+  "detection_terms": ["宿主", "系统面板", "任务链", "商城", "积分", "权限点", "模块解锁", "系统奖励"],
+  "track_kinds": ["numeric_level", "branch_tree", "ordered_rank"],
+  "native_terms": {
+    "progression_track": ["宿主等级", "系统版本", "商城等级", "权限"],
+    "ability": ["模块", "系统技能"],
+    "resource_pool": ["积分", "权限点", "次数"],
+    "qualification": ["任务旗标", "模块权限"],
+    "observation": ["面板显示"]
+  },
+  "required_dimensions": ["panel_plane", "task_condition", "reward_source", "module_unlock", "permission", "system_purpose"],
+  "question_prompts": ["面板是客观规则、角色界面还是误导信息？", "任务完成证据与奖励来源是什么？", "越权和系统目的会制造什么代价？"],
+  "no_rank_generation": false
+}

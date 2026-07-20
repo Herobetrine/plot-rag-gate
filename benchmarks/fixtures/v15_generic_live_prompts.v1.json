@@ -1,0 +1,231 @@
+{
+  "schema_version": "plot-rag-v15-live-prompts/v1",
+  "fixture_id": "generic-story-v15-isolated-ab",
+  "prompts": [
+    {
+      "prompt_id": "generic-001",
+      "artifact_stage": "outline",
+      "task": "outline",
+      "branch_id": "main",
+      "chapter_no": 1,
+      "scene_index": 0,
+      "prompt": "推演测试角色甲在测试城醒来后的第一场危机，核对他的当前状态、伤势、所处位置和故事时间，以形成必须立即行动的压力为终点。"
+    },
+    {
+      "prompt_id": "generic-002",
+      "artifact_stage": "outline",
+      "task": "outline",
+      "branch_id": "main",
+      "chapter_no": 1,
+      "scene_index": 1,
+      "prompt": "设计测试角色甲面对监管机构盘查的事件，先确认他与监管机构的关系、双方掌握的信息和可用退路，让读者感到身份即将暴露的紧张。"
+    },
+    {
+      "prompt_id": "generic-003",
+      "artifact_stage": "draft",
+      "task": "scene",
+      "branch_id": "main",
+      "chapter_no": 1,
+      "scene_index": 2,
+      "prompt": "推演测试角色甲利用现有物品摆脱追捕的场景，核对物品功能、保管关系、当前位置、可用力量与代价，不新增未经记录的能力。"
+    },
+    {
+      "prompt_id": "generic-004",
+      "artifact_stage": "outline",
+      "task": "outline",
+      "branch_id": "main",
+      "chapter_no": 2,
+      "scene_index": 0,
+      "prompt": "规划测试角色甲从当前地点前往测试城交通节点的事件，核对移动起点、终点、城际列车规则和当前故事时间，以抵达但留下追踪线索为结算。"
+    },
+    {
+      "prompt_id": "generic-005",
+      "artifact_stage": "draft",
+      "task": "scene",
+      "branch_id": "main",
+      "chapter_no": 2,
+      "scene_index": 1,
+      "prompt": "设计测试角色甲与一名潜在盟友试探合作的对话，核对既有关系维度、承诺、债务和双方认知边界，让读者获得短暂松弛但保留怀疑。"
+    },
+    {
+      "prompt_id": "generic-006",
+      "artifact_stage": "outline",
+      "task": "outline",
+      "branch_id": "main",
+      "chapter_no": 3,
+      "scene_index": 0,
+      "prompt": "推演测试角色甲第一次主动使用已掌握力量与能力解决封锁的事件，核对能力来源、资源、冷却、限制和环境条件，以成功脱身但付出可追踪代价为终点。"
+    },
+    {
+      "prompt_id": "generic-007",
+      "artifact_stage": "draft",
+      "task": "scene",
+      "branch_id": "main",
+      "chapter_no": 3,
+      "scene_index": 1,
+      "prompt": "设计敌对修士动用术式与法器逼迫测试角色甲选择的战斗，核对双方能力、物品、位置和已知情报，让读者先感到压迫再获得一次有限反击。"
+    },
+    {
+      "prompt_id": "generic-008",
+      "artifact_stage": "outline",
+      "task": "outline",
+      "branch_id": "main",
+      "chapter_no": 4,
+      "scene_index": 0,
+      "prompt": "规划测试角色甲调查测试城异常制度的事件链，核对活跃伏笔、世界规则、相关势力关系和当前时间窗口，以发现证据但扩大风险为结算。"
+    },
+    {
+      "prompt_id": "generic-009",
+      "artifact_stage": "draft",
+      "task": "scene",
+      "branch_id": "main",
+      "chapter_no": 4,
+      "scene_index": 1,
+      "prompt": "推演测试角色甲在不牺牲自身退路的前提下帮助他人脱困，核对他的目标、关系、位置、道具和可用能力，让救人与自保暂时保持一致。"
+    },
+    {
+      "prompt_id": "generic-010",
+      "artifact_stage": "outline",
+      "task": "outline",
+      "branch_id": "main",
+      "chapter_no": 5,
+      "scene_index": 0,
+      "prompt": "设计一次物品转移引发的连续性事件，核对唯一物品的旧持有人、新持有人、实际保管者、地点和故事坐标，确保所有权与携带关系守恒。"
+    },
+    {
+      "prompt_id": "generic-011",
+      "artifact_stage": "draft",
+      "task": "scene",
+      "branch_id": "main",
+      "chapter_no": 5,
+      "scene_index": 1,
+      "prompt": "推演测试角色甲在列车站接受身份和货物校验的场景，核对跨区交通制度、携带物品、关系凭证、当前位置和时间，让读者感到规则本身正在收紧。"
+    },
+    {
+      "prompt_id": "generic-012",
+      "artifact_stage": "outline",
+      "task": "outline",
+      "branch_id": "main",
+      "chapter_no": 6,
+      "scene_index": 0,
+      "prompt": "规划测试角色甲处理一条即将到期承诺的事件，核对承诺对象、关系维度、期限、当前资源和其他活跃剧情债务，以兑现一部分并制造新问题为终点。"
+    },
+    {
+      "prompt_id": "generic-013",
+      "artifact_stage": "draft",
+      "task": "scene",
+      "branch_id": "main",
+      "chapter_no": 6,
+      "scene_index": 1,
+      "prompt": "设计测试角色甲因错误认知而做出合理但不完全正确选择的场景，核对客观事实、角色认知、读者已知和关系状态，让读者获得信息差带来的焦虑。"
+    },
+    {
+      "prompt_id": "generic-014",
+      "artifact_stage": "outline",
+      "task": "outline",
+      "branch_id": "main",
+      "chapter_no": 7,
+      "scene_index": 0,
+      "prompt": "推演测试角色甲尝试升级或突破现有力量阶段的事件，核对成长轨、前置资格、资源、失败代价、冷却和当前状态，不越过未定义的晋升边。"
+    },
+    {
+      "prompt_id": "generic-015",
+      "artifact_stage": "draft",
+      "task": "scene",
+      "branch_id": "main",
+      "chapter_no": 7,
+      "scene_index": 1,
+      "prompt": "设计测试角色甲使用具有超凡来源绑定的物品作战，核对物品实例、功能运行态、PowerBinding、充能、耐久、装备槽和角色可用能力。"
+    },
+    {
+      "prompt_id": "generic-016",
+      "artifact_stage": "outline",
+      "task": "outline",
+      "branch_id": "main",
+      "chapter_no": 8,
+      "scene_index": 0,
+      "prompt": "规划一次从测试城制度冲突扩展到更大势力博弈的事件，核对势力关系、主角当前目标、活跃伏笔和世界规则，让格局扩大但仍落在主角可感知范围。"
+    },
+    {
+      "prompt_id": "generic-017",
+      "artifact_stage": "draft",
+      "task": "scene",
+      "branch_id": "main",
+      "chapter_no": 8,
+      "scene_index": 1,
+      "prompt": "推演测试角色甲在受伤、资源不足和冷却未结束时应对突发袭击，核对伤势、资源、能力限制、位置、道具和时间，避免把他写成无代价全能。"
+    },
+    {
+      "prompt_id": "generic-018",
+      "artifact_stage": "outline",
+      "task": "outline",
+      "branch_id": "main",
+      "chapter_no": 9,
+      "scene_index": 0,
+      "prompt": "设计一次关键证据物品被发现、观察和误读的事件，分别核对物品客观状态、观察记录、角色认知、保管关系和可追溯使用史。"
+    },
+    {
+      "prompt_id": "generic-019",
+      "artifact_stage": "draft",
+      "task": "scene",
+      "branch_id": "main",
+      "chapter_no": 9,
+      "scene_index": 1,
+      "prompt": "推演测试角色甲在两个不完全可信阵营之间谈判的场景，核对关系、承诺、债务、双方能力与持有物品，让读者感到选择任何一方都会留下后患。"
+    },
+    {
+      "prompt_id": "generic-020",
+      "artifact_stage": "outline",
+      "task": "outline",
+      "branch_id": "main",
+      "chapter_no": 10,
+      "scene_index": 0,
+      "prompt": "规划一次跨场景追逐，核对每次移动的起点与终点、列车和车站规则、角色状态、道具消耗和故事时间，确保空间与时间连续。"
+    },
+    {
+      "prompt_id": "generic-021",
+      "artifact_stage": "draft",
+      "task": "scene",
+      "branch_id": "main",
+      "chapter_no": 10,
+      "scene_index": 1,
+      "prompt": "设计测试角色甲发现旧线索与当前状态事实冲突的场景，核对历史、current、timeless 和 planned 的作用域，先保留冲突而不是自动猜测哪条正确。"
+    },
+    {
+      "prompt_id": "generic-022",
+      "artifact_stage": "outline",
+      "task": "outline",
+      "branch_id": "main",
+      "chapter_no": 11,
+      "scene_index": 0,
+      "prompt": "推演一次物品功能因冷却、耐久或地点条件而不可用的事件，核对实例运行态、功能前置、当前保管者、装备状态和替代行动。"
+    },
+    {
+      "prompt_id": "generic-023",
+      "artifact_stage": "draft",
+      "task": "scene",
+      "branch_id": "main",
+      "chapter_no": 11,
+      "scene_index": 1,
+      "prompt": "设计一场主角获胜但没有完全解决危机的战斗，核对敌我能力、法器、资源、关系和伏笔，让读者获得爽点同时明确更大的后续压力。"
+    },
+    {
+      "prompt_id": "generic-024",
+      "artifact_stage": "outline",
+      "task": "outline",
+      "branch_id": "main",
+      "chapter_no": 12,
+      "scene_index": 0,
+      "prompt": "规划卷内阶段结算事件，核对本卷活跃剧情债务、承诺、关系变化、力量成长、重要物品和故事时间，结清当前意图并改变下一事件起点。"
+    },
+    {
+      "prompt_id": "generic-025",
+      "artifact_stage": "revision",
+      "task": "revision",
+      "branch_id": "main",
+      "chapter_no": 12,
+      "scene_index": 1,
+      "prompt": "审查并修订一段涉及测试角色甲状态、关系、位置、物品、力量和时间的剧情方案，优先服从 accepted 精确事实，标出任何降级检索或尚未确认的缺口。"
+    }
+  ]
+}

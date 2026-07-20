@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-power/v1/bridge-rule.schema.json",
+  "type": "object",
+  "required": ["bridge_rule_id", "source_namespace", "target_namespace", "direction", "reversible", "conditions", "conversion", "conflict_policy"],
+  "properties": {
+    "bridge_rule_id": {"$ref": "common.schema.json#/$defs/entityId"},
+    "source_namespace": {"type": "string"},
+    "target_namespace": {"type": "string"},
+    "direction": {"enum": ["one_way", "two_way"]},
+    "reversible": {"type": "boolean"},
+    "conditions": {"type": "array"},
+    "conversion": {"type": "object"},
+    "conflict_policy": {"enum": ["project_first", "narrower_wins", "conflicted", "narrower_wins"]}
+  },
+  "additionalProperties": true
+}

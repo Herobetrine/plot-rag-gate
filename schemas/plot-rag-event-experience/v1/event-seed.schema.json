@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-event-experience/v1/event-seed.schema.json",
+  "title": "Plot RAG EventSeed v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "event_seed_revision",
+    "parent_chain_id",
+    "dependency_order",
+    "dramatic_function",
+    "causal_role",
+    "intended_state_change",
+    "event_boundary",
+    "narrative_event_id",
+    "artifact_id",
+    "artifact_revision",
+    "branch_id",
+    "chapter_no",
+    "scene_index"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "plot-rag-event-experience/v1"
+    },
+    "event_seed_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "event_seed_revision": {
+      "$ref": "common.schema.json#/$defs/positiveInteger"
+    },
+    "parent_chain_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "dependency_order": {
+      "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+    },
+    "dramatic_function": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "causal_role": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "intended_state_change": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "event_boundary": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "narrative_event_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "artifact_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "artifact_revision": {
+      "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+    },
+    "branch_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "chapter_no": {
+      "$ref": "common.schema.json#/$defs/nullableNonNegativeInteger"
+    },
+    "scene_index": {
+      "$ref": "common.schema.json#/$defs/nullableNonNegativeInteger"
+    },
+    "source_outline_commit_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "source_outline_artifact_version_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "source_outline_artifact_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "source_outline_artifact_revision": {
+      "$ref": "common.schema.json#/$defs/nonNegativeInteger"
+    },
+    "source_outline_content_hash": {
+      "type": "string",
+      "pattern": "^(?:|[a-f0-9]{64})$"
+    },
+    "supersedes_seed_revision": {
+      "$ref": "common.schema.json#/$defs/positiveInteger"
+    },
+    "seed_hash": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "status": {
+      "enum": [
+        "seeded",
+        "experience_locked",
+        "expanded",
+        "generated",
+        "retired"
+      ]
+    },
+    "experience_contract_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 256
+    },
+    "experience_contract_hash": {
+      "oneOf": [
+        {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "retired_at": {
+      "$ref": "common.schema.json#/$defs/nullableTimestamp"
+    },
+    "retired_reason": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 4096
+    },
+    "created_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "updated_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    }
+  },
+  "additionalProperties": false
+}

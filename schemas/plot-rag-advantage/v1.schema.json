@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-advantage/v1.schema.json",
+  "title": "Plot RAG Advantage Initialization Sidecar v1 Canonical Entry Point",
+  "$ref": "../plot-rag-advantage.v1.json"
+}

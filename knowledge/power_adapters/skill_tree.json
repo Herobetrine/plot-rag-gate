@@ -1,0 +1,20 @@
+{
+  "schema_version": "plot-rag-power-adapter/v1",
+  "adapter_id": "plot-rag-power.skill_tree",
+  "version": "1.0.0",
+  "profile": "skill_tree",
+  "display_name": "技能树",
+  "aliases": ["技能体系", "天赋树", "skill tree"],
+  "detection_terms": ["技能点", "熟练度", "前置技能", "被动", "主动", "天赋", "槽位", "洗点", "互斥分支"],
+  "track_kinds": ["branch_tree", "dag", "numeric_level"],
+  "native_terms": {
+    "progression_track": ["技能树", "天赋树", "熟练度"],
+    "rank_node": ["技能等级", "节点"],
+    "ability": ["主动技能", "被动技能", "切换技能"],
+    "resource_pool": ["技能点", "训练时长"],
+    "qualification": ["前置技能", "导师资格", "技能槽"]
+  },
+  "required_dimensions": ["prerequisite", "mutual_exclusion", "point_cost", "proficiency", "slot", "respec"],
+  "question_prompts": ["技能图有哪些前置与互斥边？", "技能点和熟练度分别如何取得？", "解锁、装备槽与实际可用如何区分？"],
+  "no_rank_generation": false
+}

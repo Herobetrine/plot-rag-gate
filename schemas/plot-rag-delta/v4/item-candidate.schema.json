@@ -1,0 +1,905 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plot-rag-gate.local/schemas/plot-rag-delta/v4/item-candidate.schema.json",
+  "title": "Neutral Plot RAG Item Delta v4 Candidate",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/itemSpec"
+    },
+    {
+      "$ref": "#/$defs/itemInstance"
+    },
+    {
+      "$ref": "#/$defs/itemCustody"
+    },
+    {
+      "$ref": "#/$defs/itemRuntime"
+    },
+    {
+      "$ref": "#/$defs/itemUse"
+    },
+    {
+      "$ref": "#/$defs/itemObservation"
+    },
+    {
+      "$ref": "#/$defs/itemCorrection"
+    }
+  ],
+  "$defs": {
+    "base": {
+      "type": "object",
+      "required": [
+        "event_type",
+        "action",
+        "subject",
+        "objects",
+        "changes",
+        "scope",
+        "story_coordinate",
+        "knowledge_plane",
+        "confidence",
+        "evidence"
+      ],
+      "properties": {
+        "event_type": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "common.schema.json#/$defs/reference"
+        },
+        "objects": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "$ref": "common.schema.json#/$defs/roleReference"
+          }
+        },
+        "changes": {
+          "type": "object"
+        },
+        "scope": {
+          "enum": [
+            "current",
+            "planned",
+            "historical",
+            "timeless"
+          ]
+        },
+        "effective_at": {
+          "$ref": "common.schema.json#/$defs/effectiveAt"
+        },
+        "story_coordinate": {
+          "$ref": "common.schema.json#/$defs/storyCoordinate"
+        },
+        "knowledge_plane": {
+          "$ref": "common.schema.json#/$defs/knowledgePlane"
+        },
+        "ambiguity": {
+          "$ref": "common.schema.json#/$defs/remoteJson"
+        },
+        "confidence": {
+          "$ref": "common.schema.json#/$defs/confidence"
+        },
+        "evidence": {
+          "$ref": "common.schema.json#/$defs/evidence"
+        }
+      },
+      "additionalProperties": false
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1200
+    },
+    "definition": {
+      "type": "object",
+      "properties": {
+        "item_kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stack_policy": {
+          "enum": [
+            "non_stackable",
+            "homogeneous",
+            "lot"
+          ]
+        },
+        "uniqueness_policy": {
+          "enum": [
+            "ordinary",
+            "unique_instance",
+            "unique_definition"
+          ]
+        },
+        "capacity": {
+          "$ref": "common.schema.json#/$defs/nonNegativeNumber"
+        },
+        "unit_bulk": {
+          "$ref": "common.schema.json#/$defs/nonNegativeNumber"
+        },
+        "max_durability": {
+          "$ref": "common.schema.json#/$defs/nonNegativeNumber"
+        },
+        "max_energy": {
+          "$ref": "common.schema.json#/$defs/nonNegativeNumber"
+        },
+        "default_functions": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/mention"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "functionDefinition": {
+      "type": "object",
+      "properties": {
+        "activation": {
+          "$ref": "common.schema.json#/$defs/remoteJson"
+        },
+        "prerequisites": {
+          "$ref": "common.schema.json#/$defs/remoteJson"
+        },
+        "effect_owner": {
+          "enum": [
+            "inline",
+            "ability_bridge"
+          ]
+        },
+        "inline_effects": {
+          "$ref": "common.schema.json#/$defs/remoteJson"
+        },
+        "granted_abilities": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/mention"
+          }
+        },
+        "costs": {
+          "$ref": "common.schema.json#/$defs/remoteJson"
+        },
+        "cooldown": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "charges": {
+          "$ref": "common.schema.json#/$defs/nonNegativeNumber"
+        },
+        "durability_cost": {
+          "$ref": "common.schema.json#/$defs/nonNegativeNumber"
+        },
+        "side_effects": {
+          "$ref": "common.schema.json#/$defs/remoteJson"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "bindingDefinition": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "conditions": {
+          "$ref": "common.schema.json#/$defs/remoteJson"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "itemSpec": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/base"
+        },
+        {
+          "properties": {
+            "event_type": {
+              "const": "item_spec"
+            },
+            "action": {
+              "enum": [
+                "define",
+                "deprecate",
+                "supersede"
+              ]
+            },
+            "subject": {
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "item_definition",
+                    "function_definition",
+                    "function_binding"
+                  ]
+                }
+              }
+            },
+            "objects": {
+              "items": {
+                "properties": {
+                  "role": {
+                    "enum": [
+                      "item_definition",
+                      "item_instance",
+                      "function",
+                      "ability",
+                      "supersedes_spec"
+                    ]
+                  }
+                }
+              }
+            },
+            "changes": {
+              "type": "object",
+              "properties": {
+                "definition": {
+                  "type": "object"
+                },
+                "reason": {
+                  "$ref": "#/$defs/reason"
+                }
+              },
+              "additionalProperties": false
+            },
+            "scope": {
+              "enum": [
+                "current",
+                "planned",
+                "historical",
+                "timeless"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "subject": {
+                    "properties": {
+                      "kind": {
+                        "const": "item_definition"
+                      }
+                    }
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "changes": {
+                    "properties": {
+                      "definition": {
+                        "$ref": "#/$defs/definition"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "subject": {
+                    "properties": {
+                      "kind": {
+                        "const": "function_definition"
+                      }
+                    }
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "changes": {
+                    "properties": {
+                      "definition": {
+                        "$ref": "#/$defs/functionDefinition"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "subject": {
+                    "properties": {
+                      "kind": {
+                        "const": "function_binding"
+                      }
+                    }
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "changes": {
+                    "properties": {
+                      "definition": {
+                        "$ref": "#/$defs/bindingDefinition"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "supersede"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "objects": {
+                    "contains": {
+                      "properties": {
+                        "role": {
+                          "const": "supersedes_spec"
+                        }
+                      },
+                      "required": [
+                        "role"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "itemInstance": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/base"
+        },
+        {
+          "properties": {
+            "event_type": {
+              "const": "item_instance"
+            },
+            "action": {
+              "enum": [
+                "instantiate",
+                "retire",
+                "split",
+                "merge"
+              ]
+            },
+            "subject": {
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "item_instance",
+                    "item_stack"
+                  ]
+                }
+              }
+            },
+            "objects": {
+              "items": {
+                "properties": {
+                  "role": {
+                    "enum": [
+                      "item_definition",
+                      "source_stack",
+                      "target_stack"
+                    ]
+                  }
+                }
+              }
+            },
+            "changes": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "$ref": "common.schema.json#/$defs/positiveNumber"
+                },
+                "batch": {
+                  "$ref": "common.schema.json#/$defs/remoteJson"
+                },
+                "target_batch": {
+                  "$ref": "common.schema.json#/$defs/remoteJson"
+                },
+                "attributes": {
+                  "$ref": "common.schema.json#/$defs/remoteJson"
+                },
+                "reason": {
+                  "$ref": "#/$defs/reason"
+                }
+              },
+              "additionalProperties": false
+            },
+            "scope": {
+              "enum": [
+                "current",
+                "planned",
+                "historical"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "itemCustody": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/base"
+        },
+        {
+          "properties": {
+            "event_type": {
+              "const": "item_custody"
+            },
+            "action": {
+              "enum": [
+                "acquire",
+                "transfer_title",
+                "handover",
+                "loan",
+                "return",
+                "seize",
+                "store",
+                "retrieve",
+                "lose",
+                "recover",
+                "abandon"
+              ]
+            },
+            "subject": {
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "item_instance",
+                    "item_stack"
+                  ]
+                }
+              }
+            },
+            "objects": {
+              "items": {
+                "properties": {
+                  "role": {
+                    "enum": [
+                      "actor",
+                      "from_legal_owner",
+                      "to_legal_owner",
+                      "from_carrier",
+                      "to_carrier",
+                      "from_custodian",
+                      "to_custodian",
+                      "from_container",
+                      "to_container",
+                      "from_location",
+                      "to_location"
+                    ]
+                  }
+                }
+              }
+            },
+            "changes": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "$ref": "common.schema.json#/$defs/positiveNumber"
+                },
+                "terms": {
+                  "$ref": "common.schema.json#/$defs/remoteJson"
+                },
+                "reason": {
+                  "$ref": "#/$defs/reason"
+                }
+              },
+              "additionalProperties": false
+            },
+            "scope": {
+              "enum": [
+                "current",
+                "planned",
+                "historical"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "itemRuntime": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/base"
+        },
+        {
+          "properties": {
+            "event_type": {
+              "const": "item_runtime"
+            },
+            "action": {
+              "enum": [
+                "equip",
+                "unequip",
+                "bind",
+                "unbind",
+                "activate",
+                "deactivate",
+                "consume",
+                "charge",
+                "discharge",
+                "repair",
+                "damage",
+                "break",
+                "destroy",
+                "seal",
+                "unseal",
+                "unlock_function",
+                "suppress_function"
+              ]
+            },
+            "subject": {
+              "properties": {
+                "kind": {
+                  "const": "item_instance"
+                }
+              }
+            },
+            "objects": {
+              "items": {
+                "properties": {
+                  "role": {
+                    "enum": [
+                      "actor",
+                      "function",
+                      "slot",
+                      "target"
+                    ]
+                  }
+                }
+              }
+            },
+            "changes": {
+              "type": "object",
+              "properties": {
+                "delta": {
+                  "$ref": "common.schema.json#/$defs/positiveDelta"
+                },
+                "slot_key": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 160
+                },
+                "reason": {
+                  "$ref": "#/$defs/reason"
+                }
+              },
+              "additionalProperties": false
+            },
+            "scope": {
+              "enum": [
+                "current",
+                "planned",
+                "historical"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "itemUse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/base"
+        },
+        {
+          "properties": {
+            "event_type": {
+              "const": "item_use"
+            },
+            "action": {
+              "enum": [
+                "use",
+                "trigger",
+                "consume"
+              ]
+            },
+            "subject": {
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "item_instance",
+                    "item_stack"
+                  ]
+                }
+              }
+            },
+            "objects": {
+              "items": {
+                "properties": {
+                  "role": {
+                    "enum": [
+                      "actor",
+                      "function",
+                      "target",
+                      "location",
+                      "resource"
+                    ]
+                  }
+                }
+              },
+              "allOf": [
+                {
+                  "contains": {
+                    "properties": {
+                      "role": {
+                        "const": "actor"
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ]
+                  }
+                },
+                {
+                  "contains": {
+                    "properties": {
+                      "role": {
+                        "const": "function"
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ]
+                  }
+                }
+              ]
+            },
+            "changes": {
+              "type": "object",
+              "properties": {
+                "delta": {
+                  "$ref": "common.schema.json#/$defs/positiveDelta"
+                },
+                "observed_effects": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "minProperties": 1,
+                      "propertyNames": {
+                        "not": {
+                          "pattern": "^(?:id|.*_id|.*_ids|before|after|current|remaining|resulting|computed|derived|new|updated)$"
+                        }
+                      },
+                      "additionalProperties": {
+                        "$ref": "common.schema.json#/$defs/remoteJson"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 500,
+                      "items": {
+                        "$ref": "common.schema.json#/$defs/remoteJson"
+                      }
+                    }
+                  ]
+                },
+                "reason": {
+                  "$ref": "#/$defs/reason"
+                }
+              },
+              "additionalProperties": false
+            },
+            "scope": {
+              "enum": [
+                "current",
+                "planned",
+                "historical"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "itemObservation": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/base"
+        },
+        {
+          "properties": {
+            "event_type": {
+              "const": "item_observation"
+            },
+            "action": {
+              "enum": [
+                "observe",
+                "reveal",
+                "claim",
+                "misidentify",
+                "correct"
+              ]
+            },
+            "subject": {
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "item_instance",
+                    "item_stack"
+                  ]
+                }
+              }
+            },
+            "objects": {
+              "items": {
+                "properties": {
+                  "role": {
+                    "enum": [
+                      "observer",
+                      "function",
+                      "observed_actor",
+                      "source"
+                    ]
+                  }
+                }
+              },
+              "contains": {
+                "properties": {
+                  "role": {
+                    "const": "observer"
+                  }
+                },
+                "required": [
+                  "role"
+                ]
+              }
+            },
+            "changes": {
+              "type": "object",
+              "required": [
+                "observation"
+              ],
+              "properties": {
+                "observation": {
+                  "type": "object",
+                  "minProperties": 1,
+                  "propertyNames": {
+                    "not": {
+                      "pattern": "^(?:id|.*_id|.*_ids|before|after|current|remaining|resulting|computed|derived|new|updated)$"
+                    }
+                  },
+                  "additionalProperties": {
+                    "$ref": "common.schema.json#/$defs/remoteJson"
+                  }
+                },
+                "reason": {
+                  "$ref": "#/$defs/reason"
+                }
+              },
+              "additionalProperties": false
+            },
+            "scope": {
+              "enum": [
+                "current",
+                "planned",
+                "historical"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "itemCorrection": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/base"
+        },
+        {
+          "properties": {
+            "event_type": {
+              "const": "item_correction"
+            },
+            "action": {
+              "enum": [
+                "correct",
+                "supersede",
+                "retract"
+              ]
+            },
+            "subject": {
+              "properties": {
+                "kind": {
+                  "const": "item_event"
+                }
+              }
+            },
+            "objects": {
+              "items": {
+                "properties": {
+                  "role": {
+                    "enum": [
+                      "target_event",
+                      "item"
+                    ]
+                  }
+                }
+              }
+            },
+            "changes": {
+              "type": "object",
+              "properties": {
+                "replacement": {
+                  "$ref": "#"
+                },
+                "reason": {
+                  "$ref": "#/$defs/reason"
+                }
+              },
+              "additionalProperties": false
+            },
+            "scope": {
+              "enum": [
+                "current",
+                "planned",
+                "historical"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "retract"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "changes": {
+                    "not": {
+                      "required": [
+                        "replacement"
+                      ]
+                    }
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "changes": {
+                    "required": [
+                      "replacement"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
