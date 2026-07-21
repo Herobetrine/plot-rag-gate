@@ -2,7 +2,9 @@
 
 面向长篇网文的剧情连续性、作品初始化与创作方法 RAG 门禁。
 
-`v1.6.4` 修正 Codex 运行时集成：Hook 清单只声明宿主支持的
+`v1.6.5` 将 GitHub Windows 全量回归的受保护时限调整为 35 分钟，避免
+完整确定性测试仍在执行时被旧的 20 分钟上限取消；`v1.6.4` 修正 Codex
+运行时集成：Hook 清单只声明宿主支持的
 `SessionStart / UserPromptSubmit / Stop`，未决 extraction 屏障在同一个 `Stop`
 边界持久化，不再依赖宿主没有提供的 `SessionEnd` 事件。内部 `--session-end`
 入口继续保留，供兼容调用和直接诊断使用。v1.6.3 的通用发行清理继续有效：

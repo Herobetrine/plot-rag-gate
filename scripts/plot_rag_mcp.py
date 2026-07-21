@@ -16,7 +16,7 @@ from urllib.parse import quote
 
 
 SERVER_NAME = "plot-rag-state"
-SERVER_VERSION = "1.6.4"
+SERVER_VERSION = "1.6.5"
 PROTOCOL_VERSION = "2025-06-18"
 PLUGIN_ROOT = Path(__file__).resolve().parents[1]
 if str(PLUGIN_ROOT) not in sys.path:

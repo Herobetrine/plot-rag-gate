@@ -4894,7 +4894,7 @@ def _expected_ci_job(job_name: str) -> dict[str, Any]:
                     "Python ${{ matrix.python-version }} on ${{ matrix.os }}"
                 ),
                 "runs-on": "${{ matrix.os }}",
-                "timeout-minutes": "20",
+                "timeout-minutes": "35",
                 "strategy": {
                     "fail-fast": "false",
                     "matrix": {

@@ -299,7 +299,7 @@ class PlotStateCliTestCase(unittest.TestCase):
             cli._parser().parse_args(["--version"])
         self.assertEqual(0, raised.exception.code)
         self.assertEqual(
-            "plot-rag-gate 1.6.4 (runtime schema 1)",
+            "plot-rag-gate 1.6.5 (runtime schema 1)",
             output.getvalue().strip(),
         )
 

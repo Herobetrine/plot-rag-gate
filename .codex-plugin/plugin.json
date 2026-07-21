@@ -1,6 +1,6 @@
 {
   "name": "plot-rag-gate",
-  "version": "1.6.4+codex.20260720165055",
+  "version": "1.6.5+codex.20260721041757",
   "description": "Intent- and experience-gated webnovel RAG with schema-v7 item/Advantage continuity, exact SiliconFlow retrieval, and proposal/grant/CAS canon control.",
   "author": {
     "name": "plot-rag-gate-contributors"

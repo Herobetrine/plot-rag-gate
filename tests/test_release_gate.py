@@ -522,6 +522,11 @@ class ReleaseGateTests(unittest.TestCase):
                 "",
                 1,
             ),
+            "test_timeout": source.replace(
+                "    timeout-minutes: 35\n",
+                "    timeout-minutes: 20\n",
+                1,
+            ),
             "warnings_ignored": source.replace(
                 '          PYTHONWARNINGS: "error::ResourceWarning"\n',
                 '          PYTHONWARNINGS: "ignore"\n',

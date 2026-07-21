@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.5 - 2026-07-21
+
+- Raised the protected cross-platform unit-test budget from 20 to 35 minutes
+  after GitHub-hosted Windows runners consistently reached the old timeout
+  while still executing the full deterministic suite. The release contract and
+  regression coverage now reject an undercut timeout.
 
 ## 1.6.4 - 2026-07-20
 
